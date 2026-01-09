@@ -19,7 +19,6 @@ env/
 db.sqlite3
 media/
 staticfiles/
-static/
 
 # Pytest
 .cache/

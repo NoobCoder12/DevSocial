@@ -1,0 +1,58 @@
+:root {
+    --additional-info-size: 0.8rem;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 70vh;
+    width: 30vw;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: rgba(238, 238, 238, 0.796);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form form p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form form p label {
+    font-size: 1.5rem;
+}
+
+.form form ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+.form form ul li,
+.form form p span {
+    font-size: var(--additional-info-size);
+}
+

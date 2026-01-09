@@ -1,0 +1,76 @@
+.my-account-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "title title title"
+    " info posts posts";
+    column-gap: 4rem;
+    row-gap: 7rem;
+    padding: 0 5rem;
+}
+
+.account-title {
+    grid-area: title;
+    display: flex;
+    justify-content: center;
+    background-color: red;
+}
+
+.account-info {
+    grid-area: info;
+    display: flex;
+    padding: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    border: 1px solid black;
+    height: 60vh;
+    width: 20vw;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.account-posts {
+    grid-area: posts;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.layout {
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    gap: 3rem;
+}
+
+.search-results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+    gap: 3rem;
+}
+
+.result {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
+    gap: 10rem;
+}
+
+.fa-solid.fa-user-plus {
+    cursor: pointer;
+}
+

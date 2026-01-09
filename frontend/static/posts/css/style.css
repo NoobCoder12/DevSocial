@@ -1,0 +1,56 @@
+:root {
+    --main-color: #212529;
+
+}
+
+.layout {
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    gap: 3rem;
+}
+
+.post {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.post-author{
+    font-size: 1.5rem;
+    color: var(--main-color);
+}
+
+.post-body {
+    font-weight: 400;
+}
+
+.post-date {
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+
+.fa-solid.fa-heart {
+    cursor: pointer;
+}
+
+.fa-solid.fa-heart.liked {
+    color: red;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
