@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+
+{% block title%}
+    Results
+{% endblock %}
+
+{% block head %}
+   <link rel="stylesheet" href="{% static 'users/css/account-style.css' %}">
+{% endblock %}
+
+
+{% block body %}
+<div class='layout'>
+    <main>
+        <h2>Users found</h2>
+        <div class='search-results'>
+            {% for user in results %}
+            <div class='result'>
+                <p class='result-username'> {{ user.username }} </p>
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+                {% empty %}
+                <p>No users found</p>
+            {% endfor %}
+        </div>
+    </main>
+<div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title%}
+    My account
+{% endblock %}
+
+{% block head %}
+   <link rel="stylesheet" href="{% static 'users/css/account-style.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="my-account-layout">
+    <h1 class='account-title'>
+        My account
+    </h1>
+
+    <div class='account-info'>
+        <p class='account-photo'> photo </p>
+        <div class='account-username'>
+            <p class='label'>Username</p>
+            <p class='account-data'> {{ request.user }} </p>
+        </div>
+        <div class='account-email'>
+            <p class='label'>Email</p>
+            <p class='account-data'> {{ request.user.email }} </p>
+        </div>
+    </div>
+    <div class='account-posts'>
+        <p>number of posts</p>
+        <p>number of likes</p>
+    </div>
+</div>
+
+{% endblock %}
