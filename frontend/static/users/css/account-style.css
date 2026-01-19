@@ -15,13 +15,22 @@
     background-color: red;
 }
 
+.account-photo {
+    border: 1px solid rgba(233, 231, 231, 0.963);
+    border-radius: 50%;
+    height: 20%;
+    margin-top: 1rem;
+    box-shadow: 3px 3px rgba(233, 231, 231, 0.963);
+}
+
 .account-info {
     grid-area: info;
     display: flex;
     padding: auto;
+    margin-inline-start: 1rem;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2rem;
     border: 1px solid black;
     height: 60vh;

@@ -16,7 +16,7 @@
     </h1>
 
     <div class='account-info'>
-        <p class='account-photo'> photo </p>
+        <img src="{{ profile.profile_picture.url }}" alt="{{ request.user.username }}" class='account-photo'>
         <div class='account-username'>
             <p class='label'>Username</p>
             <p class='account-data'> {{ request.user }} </p>
@@ -24,6 +24,10 @@
         <div class='account-email'>
             <p class='label'>Email</p>
             <p class='account-data'> {{ request.user.email }} </p>
+        </div>
+        <div class='account-bio'>
+            <p class='label'>Bio</p>
+            <p class='account-data'> {{ profile.bio }}</p>
         </div>
     </div>
     <div class='account-posts'>

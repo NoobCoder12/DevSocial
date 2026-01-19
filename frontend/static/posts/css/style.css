@@ -54,3 +54,7 @@ main {
     flex-direction: row;
     gap: 1rem;
 }
+
+.likes-count {
+    margin-bottom: 1rem;
+}
