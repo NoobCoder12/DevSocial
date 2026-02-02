@@ -6,4 +6,5 @@ app_name = 'interactions'
 
 urlpatterns = [
     path('post/<slug:slug>/like/', views.toggle_like, name='toggle_like'),
+    path('post/<slug:slug>/comment/', views.add_comment, name="add-commment"),
 ]

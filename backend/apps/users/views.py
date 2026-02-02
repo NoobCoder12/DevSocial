@@ -44,7 +44,7 @@ def my_account(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     return render(request, 'users/my_account.html', {"profile": profile})
 
-
+@login_required
 def search_user(request):
     query = request.GET.get('q', '')
     results = []
