@@ -74,6 +74,7 @@ main {
 }
 
 .comment-box input {
+    display:;
     margin-bottom: 1rem;
     width: 75%;
 }
@@ -110,4 +111,10 @@ main {
 
 .comment-list {
     margin-bottom: -2rem;
+}
+
+.counter {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
 }

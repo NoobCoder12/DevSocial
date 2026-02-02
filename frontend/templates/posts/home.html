@@ -9,7 +9,10 @@
         <h5 class='post-author'>{{ post.author }}</h5>
         <p class='post-body'>{{ post.body }}</p>
         <p class='post-date'>{{ post.date }}</p>
-        <span class='likes-count'>{{ post.likes.count }}</span>
+        <div class="counters">
+          <span class='likes-count'>{{ post.likes.count }}</span>
+          <span class="comments-count">{{ post.comments.count }}</span>
+        </div>
         
         <div class="icons">
           <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
