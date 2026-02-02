@@ -3,18 +3,33 @@ from .forms import PostForm
 from .models import Post
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-@login_required
-def home(request):
-    form = PostForm()
-    posts = Post.objects.filter(author=request.user)
+
+class PostListView(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = "posts/home.html"
+    context_object_name = 'posts'
     
-    for post in posts:
-        post.user_liked = post.likes.filter(user=request.user).exists()
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user).order_by("-date")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Adding PostForm
+        context["post_form"] = PostForm()
         
-    return render(request, 'posts/home.html', {'post_form': form, 'posts': posts})
+        # Liked state for every post
+        for post in context['posts']:
+            # Creating a variable for bool
+            post.user_liked = post.is_liked_by(user=self.request.user)
+            
+        return context
+        
+
 
 
 @login_required
