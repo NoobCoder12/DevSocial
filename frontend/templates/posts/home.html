@@ -21,7 +21,23 @@
           <div id="comment-box-{{ post.slug }}" class="comment-box">
             <input type="text" id="input-{{ post.slug }}" placeholder="Comment here">
             <button class="btn btn-secondary" onclick="addComment('{{post.slug}}')">Comment</button>
+          
+          
+            <div id="comment-list-{{post.slug}}" class="comment-list">
+              {% for comment in post.comments.all %}
+              <div class="comment">
+                <!--Dot notation for related models-->
+                <img src="{{ comment.user.profile.profile_picture.url }}">
+                <strong>{{ comment.user }}</strong>
+                <p class="body">{{ comment.body }}</p>
+                <p class="timestamp">{{ comment.created_at|timesince }} ago</p>
+              </div>
+              {% empty %}
+              <p>No comments yet.
+              {% endfor %}
+            </div>
           </div>
+
 
       </div>
       {% endfor %}

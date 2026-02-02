@@ -73,6 +73,41 @@ main {
     margin-top: 1rem;
 }
 
+.comment-box input {
+    margin-bottom: 1rem;
+    width: 75%;
+}
+
 .comment-ready {
     display: block;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid black;
+    padding-top: 1rem;
+    margin-bottom: -1px;
+    
+}
+
+.comment img {
+    width: 10%;
+}
+
+.comment .timestamp {
+    font-weight: 200;
+    font-size: 0.7rem;
+}
+
+.comment .body {
+    margin-bottom: 0;
+}
+
+.comment:last-of-type  {
+    border-bottom: none;
+}
+
+.comment-list {
+    margin-bottom: -2rem;
 }
