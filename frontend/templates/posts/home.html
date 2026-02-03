@@ -28,15 +28,9 @@
           
             <div id="comment-list-{{post.slug}}" class="comment-list">
               {% for comment in post.comments.all %}
-              <div class="comment">
-                <!--Dot notation for related models-->
-                <img src="{{ comment.user.profile.profile_picture.url }}">
-                <strong>{{ comment.user }}</strong>
-                <p class="body">{{ comment.body }}</p>
-                <p class="timestamp">{{ comment.created_at|timesince }} ago</p>
-              </div>
+                {% include "posts/partials/comment_item.html" %}
               {% empty %}
-              <p>No comments yet.
+              <p class="no-comments">No comments yet.
               {% endfor %}
             </div>
           </div>
@@ -65,6 +59,7 @@
       return cookieValue;
     }
 
+    // Likes
     const hearts = document.querySelectorAll('.fa-solid.fa-heart')
 
     hearts.forEach(el => {
@@ -92,6 +87,7 @@
         });
     });
 
+    // Comments
     const comments = document.querySelectorAll(".fa-solid.fa-comment")
 
     comments.forEach((comment) => {
@@ -105,7 +101,6 @@
       })
     })
 
-    
     function addComment(slug) {
       const input = document.getElementById(`input-${slug}`) 
       const body = input.value.trim()
@@ -122,8 +117,29 @@
       })
       .then((res) => res.json())
       .then(data => {
-        console.log(data);
-        input.value = "";
+        if (data.status === "success") {
+          const list = document.getElementById(`comment-list-${slug}`);
+          
+          // Inserting HTML at the div start / CAREFULLY WITH INJECTIONS
+          list.insertAdjacentHTML('afterbegin', data.html);
+
+          input.value = "";
+          
+          // Delete message "No comments yet"
+          const emptyMsg = list.querySelector('.no-comments');
+          if (emptyMsg) emptyMsg.remove();
+
+          // Comment counter update after adding comment
+          const postContainer = list.closest(".post")
+          const commentCounter = postContainer.querySelector(".comments-count")
+
+          if (commentCounter) {
+            // Get the value from html element
+            let count = parseInt(commentCounter.textContent);
+            commentCounter.textContent = count + 1;
+          }
+
+        }
       }) 
       .catch(err => console.error(err.message))
     }
