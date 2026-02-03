@@ -9,13 +9,33 @@
         <h5 class='post-author'>{{ post.author }}</h5>
         <p class='post-body'>{{ post.body }}</p>
         <p class='post-date'>{{ post.date }}</p>
-        <span class='likes-count'>{{ post.likes.count }}</span>
+        <div class="counters">
+          <span class='likes-count'>{{ post.likes.count }}</span>
+          <span class="comments-count">{{ post.comments.count }}</span>
+        </div>
         
         <div class="icons">
           <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
-          <i class="fa-solid fa-comment"></i>
+          <i class="fa-solid fa-comment" data-post-slug="{{ post.slug }}"></i>
           <i class="fa-solid fa-share"></i>
         </div>
+
+         <!--Hidden input for comment-->
+          <div id="comment-box-{{ post.slug }}" class="comment-box">
+            <input type="text" id="input-{{ post.slug }}" placeholder="Comment here">
+            <button class="btn btn-secondary" onclick="addComment('{{post.slug}}')">Comment</button>
+          
+          
+            <div id="comment-list-{{post.slug}}" class="comment-list">
+              {% for comment in post.comments.all %}
+                {% include "posts/partials/comment_item.html" %}
+              {% empty %}
+              <p class="no-comments">No comments yet.
+              {% endfor %}
+            </div>
+          </div>
+
+
       </div>
       {% endfor %}
     </main>
@@ -39,6 +59,7 @@
       return cookieValue;
     }
 
+    // Likes
     const hearts = document.querySelectorAll('.fa-solid.fa-heart')
 
     hearts.forEach(el => {
@@ -66,6 +87,63 @@
         });
     });
 
+    // Comments
+    const comments = document.querySelectorAll(".fa-solid.fa-comment")
+
+    comments.forEach((comment) => {
+      comment.addEventListener('click', (event) => {
+        comment.classList.toggle("commenting")
+
+        const postSlug = event.currentTarget.dataset.postSlug;
+        const box = document.getElementById(`comment-box-${postSlug}`);
+
+        box.classList.toggle("comment-ready");
+      })
+    })
+
+    function addComment(slug) {
+      const input = document.getElementById(`input-${slug}`) 
+      const body = input.value.trim()
+
+      if (!body) return;
+
+      fetch(`/interactions/post/${slug}/comment/`, {
+        method: "POST",
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken'),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "body": body })
+      })
+      .then((res) => res.json())
+      .then(data => {
+        if (data.status === "success") {
+          const list = document.getElementById(`comment-list-${slug}`);
+          
+          // Inserting HTML at the div start / CAREFULLY WITH INJECTIONS
+          list.insertAdjacentHTML('afterbegin', data.html);
+
+          input.value = "";
+          
+          // Delete message "No comments yet"
+          const emptyMsg = list.querySelector('.no-comments');
+          if (emptyMsg) emptyMsg.remove();
+
+          // Comment counter update after adding comment
+          const postContainer = list.closest(".post")
+          const commentCounter = postContainer.querySelector(".comments-count")
+
+          if (commentCounter) {
+            // Get the value from html element
+            let count = parseInt(commentCounter.textContent);
+            commentCounter.textContent = count + 1;
+          }
+
+        }
+      }) 
+      .catch(err => console.error(err.message))
+    }
+
 
 
 
@@ -77,6 +155,5 @@
       });
     }); {% endcomment %}
 
-    const comment = document
   </script>
 {% endblock %}

@@ -54,3 +54,67 @@ main {
     flex-direction: row;
     gap: 1rem;
 }
+
+.likes-count {
+    margin-bottom: 1rem;
+}
+
+.fa-solid.fa-comment {
+    cursor: pointer;
+}
+
+.fa-solid.fa-comment.commenting {
+    color: rgb(83, 59, 150);
+}
+
+.comment-box {
+    display: none;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.comment-box input {
+    display:;
+    margin-bottom: 1rem;
+    width: 75%;
+}
+
+.comment-ready {
+    display: block;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid black;
+    padding-top: 1rem;
+    margin-bottom: -1px;
+    
+}
+
+.comment img {
+    width: 10%;
+}
+
+.comment .timestamp {
+    font-weight: 200;
+    font-size: 0.7rem;
+}
+
+.comment .body {
+    margin-bottom: 0;
+}
+
+.comment:last-of-type  {
+    border-bottom: none;
+}
+
+.comment-list {
+    margin-bottom: -2rem;
+}
+
+.counter {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+}

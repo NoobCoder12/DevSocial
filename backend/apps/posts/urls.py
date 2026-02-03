@@ -5,6 +5,6 @@ from . import views
 app_name = 'posts'
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('new-post/', views.new_post, name='new-post'),
+    path('', views.PostListView.as_view(), name='home'),
+    path('new-post/', views.PostCreateView.as_view(), name='new-post'),
 ]

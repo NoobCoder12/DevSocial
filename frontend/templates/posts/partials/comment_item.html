@@ -1,0 +1,7 @@
+<div class="comment">
+    <!--Dot notation for related models-->
+    <img src="{{ comment.user.profile.profile_picture.url }}">
+    <strong>{{ comment.user }}</strong>
+    <p class="body">{{ comment.body }}</p>
+    <p class="timestamp">{{ comment.created_at|timesince }} ago</p>
+</div>
