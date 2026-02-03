@@ -1,3 +1,13 @@
+:root {
+    --section-width: 30vw;
+    --margin-account-info-elements: 0 5rem;
+    --border-radius-account-info-elements: 10px;
+    --width-account-info-elements: 60%;
+    --section-height: 70vh;
+    --section-box-shadow: 10px 10px 10px;
+    --section-background-color: white;
+}
+
 body {
     width: 100%;
 }
@@ -19,14 +29,20 @@ body {
     flex-direction: column;
 }
 
-.nav {
+.added-class-buttons {
     background-color: white;
     width: 10vw;
 }
 
 .account-info {
-    background-color: aliceblue;
-    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--section-background-color);
+    width: var(--section-width);
+    gap: 2rem;
+    height: var(--section-height);
+    border-radius: var(--border-radius-account-info-elements);
+    box-shadow: var(--section-box-shadow)
 }
 
 .account-info-photo {
@@ -42,12 +58,34 @@ body {
     box-shadow: 3px 3px rgba(233, 231, 231, 0.963);
 }
 
-.d-flex {
+
+.account-info-email,
+.account-info-username,
+.account-info-bio {
+    display: flex;
+    border: 1px solid black;
+    gap: 3rem;
+    justify-content: center;
+    margin: var(--margin-account-info-elements);
+    border-radius: var(--border-radius-account-info-elements);
+    width: var(--width-account-info-elements);
+}
+
+
+.added-gap {
     gap: 4rem;
 }
 
 .posts-info {
-    width: 30vw;
+    width: var(--section-width);
+    background-color: var(--section-background-color);
+    height: var(--section-height);
+    border-radius: var(--border-radius-account-info-elements);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--section-box-shadow)
 }
 
 

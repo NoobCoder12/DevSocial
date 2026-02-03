@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Profile
+from backend.apps.posts.models import Post
 
 # Create your views here.
 
@@ -42,7 +43,8 @@ def create_user(request):
 @login_required
 def my_account(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
-    return render(request, 'users/my_account.html', {"profile": profile})
+    posts = Post.objects.filter(author=request.user).order_by("-created_at")
+    return render(request, 'users/my_account.html', {"profile": profile, "posts": posts})
 
 @login_required
 def search_user(request):
