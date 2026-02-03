@@ -10,30 +10,53 @@
 {% endblock %}
 
 {% block body %}
-<div class="my-account-layout">
+<div class="account-title-div">
     <h1 class='account-title'>
         My account
     </h1>
-
-    <div class='account-info'>
-        <img src="{{ profile.profile_picture.url }}" alt="{{ request.user.username }}" class='account-photo'>
-        <div class='account-username'>
-            <p class='label'>Username</p>
-            <p class='account-data'> {{ request.user }} </p>
-        </div>
-        <div class='account-email'>
-            <p class='label'>Email</p>
-            <p class='account-data'> {{ request.user.email }} </p>
-        </div>
-        <div class='account-bio'>
-            <p class='label'>Bio</p>
-            <p class='account-data'> {{ profile.bio }}</p>
-        </div>
-    </div>
-    <div class='account-posts'>
-        <p>number of posts</p>
-        <p>number of likes</p>
-    </div>
 </div>
+
+<div class='main-page'>
+
+    <div class="d-flex align-items-start added-gap">
+        <div class="nav flex-column nav-pills me-3 added-class-buttons" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</button>
+            <button class="nav-link" id="v-pills-posts-tab" data-bs-toggle="pill" data-bs-target="#v-pills-posts" type="button" role="tab" aria-controls="v-pills-posts" aria-selected="false">Posts</button>
+        </div>
+        
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                 <section class="account-info">
+                    <div class="account-info-photo">
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile picture of {{ request.user.username }}" class='account-photo'>
+                    </div>
+                    <div class='account-info-username'>
+                        <p class='label'>Username</p>
+                        <p class='account-data'> {{ request.user }} </p>
+                    </div>
+
+                    <div class='account-info-email'>
+                        <p class='label'>Email</p>
+                        <p class='account-data'> {{ request.user.email }} </p>
+                    </div>
+                    
+                    <div class='account-info-bio'>
+                        <p class='label'>Bio</p>
+                        <p class='account-data'> {{ profile.bio }}</p>
+                    </div>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <section class='posts-info'>
+                    <p>number of posts</p>
+                    <p>posts</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 
 {% endblock %}
