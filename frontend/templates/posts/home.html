@@ -3,7 +3,7 @@
 {% block body %}
   <div class='layout'>
     <main>
-    <h2>Feed</h2>
+    <h1>Feed</h1>
       {% for post in posts %}
       <div class="post">
         <h5 class='post-author'>{{ post.author }}</h5>
@@ -27,7 +27,7 @@
          <!--Hidden input for comment-->
           <div id="comment-box-{{ post.slug }}" class="comment-box">
             <input type="text" id="input-{{ post.slug }}" placeholder="Comment here">
-            <button class="btn btn-secondary" onclick="addComment('{{post.slug}}')">Comment</button>
+            <button class="btn btn-secondary" onclick="addComment('{{post.slug}}')">Add comment</button>
           
           
             <div id="comment-list-{{post.slug}}" class="comment-list">

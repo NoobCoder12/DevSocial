@@ -29,6 +29,10 @@ body {
     }
 
 
+nav {
+    margin-bottom: 2rem;
+}
+
 .nav-item .dropdown {
     display: flex;
     justify-content: flex-end;
