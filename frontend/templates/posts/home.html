@@ -9,15 +9,19 @@
         <h5 class='post-author'>{{ post.author }}</h5>
         <p class='post-body'>{{ post.body }}</p>
         <p class='post-date'>{{ post.date }}</p>
-        <div class="counters">
-          <span class='likes-count'>{{ post.likes.count }}</span>
-          <span class="comments-count">{{ post.comments.count }}</span>
-        </div>
-        
+
         <div class="icons">
-          <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
-          <i class="fa-solid fa-comment" data-post-slug="{{ post.slug }}"></i>
-          <i class="fa-solid fa-share"></i>
+          <div class="likes-section">
+            <span class='likes-count'>{{ post.likes.count }}</span>
+            <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
+          </div>
+          <div class="comments-section">
+            <span class="comments-count">{{ post.comments.count }}</span>
+            <i class="fa-solid fa-comment" data-post-slug="{{ post.slug }}"></i>
+          </div>
+          <div class="share-section">
+            <i class="fa-solid fa-share"></i>
+          </div>
         </div>
 
          <!--Hidden input for comment-->
