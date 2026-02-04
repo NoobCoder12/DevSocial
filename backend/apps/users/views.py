@@ -43,8 +43,9 @@ def create_user(request):
 @login_required
 def my_account(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
-    posts = Post.objects.filter(author=request.user).order_by("-created_at")
+    posts = Post.objects.filter(author=request.user).order_by("-date")
     return render(request, 'users/my_account.html', {"profile": profile, "posts": posts})
+
 
 @login_required
 def search_user(request):
