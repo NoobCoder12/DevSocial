@@ -19,9 +19,9 @@
             <span class="comments-count">{{ post.comments.count }}</span>
             <i class="fa-solid fa-comment" data-post-slug="{{ post.slug }}"></i>
           </div>
-          <div class="share-section">
+          {% comment %} <div class="share-section">
             <i class="fa-solid fa-share"></i>
-          </div>
+          </div> {% endcomment %}
         </div>
 
          <!--Hidden input for comment-->
@@ -41,6 +41,8 @@
 
 
       </div>
+      {% empty %}
+      <p>No posts yet. Press "New Post" to add your first</p>
       {% endfor %}
     </main>
   </div>

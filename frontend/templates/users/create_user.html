@@ -1,4 +1,9 @@
 {% extends 'users/base_users.html' %}
+{% load static %}
+
+{% block head %}
+   <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+{% endblock %}
 
 {% block body %}
 <div class="form">

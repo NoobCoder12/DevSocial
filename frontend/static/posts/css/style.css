@@ -21,7 +21,9 @@ main {
 
 h1 {
     font-size: 5rem;
+    font-family: "Knewave", sans-serif;
 }
+
 .post {
     border: 1px solid black;
     border-radius: 10px;
