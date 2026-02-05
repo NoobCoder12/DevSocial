@@ -4,7 +4,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100vh;  /* Screen height guaranteed */
     --s: 82px;
     --c1: #b2b2b2;
     --c2: #ffffff;

@@ -18,13 +18,23 @@
         <div class='search-results'>
             {% for user in results %}
             <div class='result'>
-                <p class='result-username'> {{ user.username }} </p>
-                <i class="fa-solid fa-user-plus"></i>
+                <div class='result-content'>
+                    <p class='result-username'> {{ user.username }} </p>
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
             </div>
                 {% empty %}
                 <p>No users found</p>
             {% endfor %}
         </div>
     </main>
-<div>
+</div>
+
+<script>
+
+    const followButtons = document.querySelectorAll('.fa-user-plus');
+
+    console.log()
+</script>
+
 {% endblock %}

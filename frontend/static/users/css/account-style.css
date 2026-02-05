@@ -21,7 +21,8 @@ body {
 .main-page {
     display: flex;
     justify-content: center;
-    gap: 4rem;
+    gap: 2rem;
+    padding-bottom: 4rem;
 }
 
 .account-options {
@@ -89,21 +90,11 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 .layout {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 main {
@@ -132,9 +123,23 @@ main {
     justify-content: center;
     padding: 3rem;
     gap: 10rem;
+    box-shadow: 10px 10px 10px;
+    background-color: white;
+}
+
+.result-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .fa-solid.fa-user-plus {
+    font-size: 1.5rem;
     cursor: pointer;
+}
+
+.followed {
+    color: rgb(1, 95, 20);
 }
 
