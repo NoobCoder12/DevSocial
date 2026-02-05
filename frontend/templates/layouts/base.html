@@ -39,9 +39,6 @@
           <a class="nav-link active" aria-current="page" href="{% url 'posts:home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#postModal">New Post</a>
         </li>
       </ul>
@@ -53,11 +50,10 @@
       <ul class='navbar-nav ms-auto'>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ request.user }}
+            <img src="{{ request.user.profile.profile_picture.url }}" alt="{{ request.user }} profile picture"> {{ request.user }}
           </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="{% url 'users:my-account' %}">My account</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
                 <form method='post' action="{% url 'users:logout' %}">
                   {% csrf_token %}
                   <li>

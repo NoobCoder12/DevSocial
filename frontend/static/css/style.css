@@ -80,3 +80,9 @@ footer {
     margin-top: auto;
 }
 
+
+.nav-link img {
+    width: 2rem;
+    border-radius: 50%;
+    margin-right: 5px;
+}
