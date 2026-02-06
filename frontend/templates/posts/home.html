@@ -14,7 +14,7 @@
         <div class="icons">
           <div class="likes-section">
             <span class='likes-count'>{{ post.likes.count }}</span>
-            <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
+            <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i> <!--post.user_liked is from CBV context-->
           </div>
           <div class="comments-section">
             <span class="comments-count">{{ post.comments.count }}</span>

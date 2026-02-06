@@ -25,7 +25,7 @@
                         <img src="/media/profile_pictures/default_pic.jpg" alt="{{ user.username }} profile picture">
                     {% endif %}
                     <p class='result-username'> {{ user.username }} </p>
-                    <i class="fa-solid fa-user-plus" data-username="{{ user.username }}"></i>
+                    <i class="fa-solid fa-user-plus {% if user.is_following %}followed{% endif %}" data-username="{{ user.username }}"></i>
                 </div>
             </div>
                 {% empty %}

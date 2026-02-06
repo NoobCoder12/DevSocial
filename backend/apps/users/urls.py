@@ -10,5 +10,5 @@ urlpatterns = [
    path('create/', views.create_user, name='create-user'),
    path('logout/', LogoutView.as_view(), name='logout'),
    path('my-account/', views.my_account, name='my-account'),
-   path('search-user', views.search_user, name='search-user'),
+   path('search-user/', views.UsersListView.as_view(), name='search-user'),
 ]

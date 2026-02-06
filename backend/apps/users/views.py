@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Profile
 from backend.apps.posts.models import Post
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from backend.apps.posts.forms import PostForm
 
 # Create your views here.
 
@@ -47,10 +50,24 @@ def my_account(request):
     return render(request, 'users/my_account.html', {"profile": profile, "posts": posts})
 
 
-@login_required
-def search_user(request):
-    query = request.GET.get('q', '')
-    results = []
-    if query:
-        results = User.objects.filter(username__icontains=query).exclude(id=request.user.id)
-    return render(request, "users/search.html", {'results': results})
+class UsersListView(LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'users/search.html'
+    context_object_name = 'results'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            return User.objects.filter(username__icontains=query).exclude(id=self.request.user.id)
+
+        return User.objects.none()  # Not to show evety user at the start
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Adding PostForm
+        context["post_form"] = PostForm()
+
+        for user in context['results']:
+            user.is_following = user.followers.filter(follower=self.request.user).exists()
+
+        return context
