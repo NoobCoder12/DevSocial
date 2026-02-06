@@ -2,7 +2,7 @@
     --section-width: 30vw;
     --margin-account-info-elements: 0 5rem;
     --border-radius-account-info-elements: 10px;
-    --width-account-info-elements: 60%;
+    --width-account-info-elements: 65%;
     --section-height: 70vh;
     --section-box-shadow: 10px 10px 10px;
     --section-background-color: white;
@@ -60,18 +60,54 @@ body {
 }
 
 
+
 .account-info-email,
 .account-info-username,
 .account-info-bio {
     display: flex;
-    border: 1px solid black;
     gap: 3rem;
-    justify-content: center;
+    justify-content: space-between;
     margin: var(--margin-account-info-elements);
     border-radius: var(--border-radius-account-info-elements);
     width: var(--width-account-info-elements);
 }
 
+.account-info-username .label,
+.account-info-email .label,
+.account-info-username .account-data,
+.account-info-email .account-data  {
+    font-size: 1.5rem;
+}
+
+.account-info-username .label,
+.account-info-email .label {
+    color: rgba(150, 143, 143, 0.977);
+}
+
+.account-info-username .account-data,
+.account-info-email .account-data {
+    color: rgba(0, 0, 0, 0.927);
+}
+
+.account-stats {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 8rem;
+}
+
+.stats-number {
+    display: flex;
+    justify-content: center;
+}
+
+.stats-number p {
+    font-size: 3.5rem;
+}
+
+.account-stats .label {
+    font-size: 1.8rem;
+}
 
 .added-gap {
     gap: 4rem;
@@ -87,6 +123,26 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: var(--section-box-shadow)
+}
+
+.posts-info-number {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+}
+
+.posts-data-number {
+    font-size: 3.7rem;
+}
+
+
+.account-posts-list {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 25vw;
+    gap: 1.5rem;
+    overflow-y: auto;
 }
 
 
@@ -171,3 +227,14 @@ main {
 .nav-pills .nav-link-color:hover:not(.active) {
     color: rgb(5, 5, 5);
 }
+
+.account-post {
+    border: 3px solid black;
+    border-radius: 15px;
+    width: 20vw;
+    padding: 0.5rem 0 0.8rem 1rem;
+}
+
+
+
+

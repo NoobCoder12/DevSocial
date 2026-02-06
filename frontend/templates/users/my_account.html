@@ -30,48 +30,71 @@
                     <div class="account-info-photo">
                         <img src="{{ profile.profile_picture.url }}" alt="Profile picture of {{ request.user.username }}" class='account-photo'>
                     </div>
+                    <div class="account-stats">
+                        <div class="followers">
+                            <p class='label'>Followers</p>
+                            <div class="stats-number">
+                                <p class='account-data'>{{ request.user.followers.count }}</p>
+                            </div>
+                        </div>
+                        <div class="following">
+                            <p class='label'>Following</p>
+                            <div class="stats-number">
+                                <p class='account-data'>{{ request.user.following.count }}</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class='account-info-username border-step4'>
-                        <p class='label'>Username</p>
-                        <p class='account-data'> {{ request.user }} </p>
+                        <p class='label'>Username:</p>
+                        <p class='account-data'>{{ request.user }}</p>
                     </div>
 
                     <div class='account-info-email'>
-                        <p class='label'>Email</p>
-                        <p class='account-data'> {{ request.user.email }} </p>
+                        <p class='label'>Email:</p>
+                        {% if request.user.email %}
+                            <p class='account-data'>{{ request.user.email }}</p>
+                        {% else %}
+                            <p class='account-data'>testdata@test.com</p>
+                        {% endif %}
                     </div>
                     
-                    <div class='account-info-bio'>
+                    {% comment %} <div class='account-info-bio'>
                         <p class='label'>Bio</p>
-                        <p class='account-data'> {{ profile.bio }}</p>
-                    </div>
+                        <p class='account-data'>{{ profile.bio }}</p>
+                    </div> {% endcomment %}
                 </section>
             </div>
             <div class="tab-pane fade" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <section class='posts-info'>
                     <div class='posts-info-number'>
-                        <p class="label">number of posts</p>
-                        <p class="posts-data">{{ posts.count }}</p>
+                        <p class="label">Number of posts:</p>
+                        <p class="posts-data-number">{{ posts.count }}</p>
                     </div>
                     <div class='posts-info-posts'>
                         <p class="label">Posts:</p>
+
+                        <div class="account-posts-list">
                         {% for post in posts %}
-                            <div class="account-posts">
-                                <p class='post-body'>{{ post.body }}</p>
-                                <p class='post-date'>{{ post.date }}</p>
-                            </div>
-                            <div class="icons">
-                                <div class="likes-section">
-                                    <span class='likes-count'>{{ post.likes.count }}</span>
-                                    <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
+                            <div class="account-post">
+                                <div class="account-post-header">
+                                    <p class='post-body'>{{ post.body }}</p>
+                                    <p class='post-date'>{{ post.date }}</p>
                                 </div>
-                                <div class="comments-section">
-                                    <span class="comments-count">{{ post.comments.count }}</span>
-                                    <i class="fa-solid fa-comment" data-post-slug="{{ post.slug }}"></i>
+                                <div class="icons">
+                                    <div class="likes-section">
+                                        <span class='likes-count'>{{ post.likes.count }}</span>
+                                        <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
+                                    </div>
+                                    <div class="comments-section">
+                                        <span class="comments-count">{{ post.comments.count }}</span>
+                                        <i class="fa-solid fa-comment" data-post-slug="{{ post.slug }}"></i>
+                                    </div>
                                 </div>
                             </div>
                         {% empty %}
                             <p>No posts yet.</p>
                         {% endfor %}
+                        </div>
                     </div>
                 </section>
             </div>
@@ -80,6 +103,5 @@
 
 </div>
 
-<script src="{% static 'posts/js/like-comment.js' %}"></script>
 
 {% endblock %}

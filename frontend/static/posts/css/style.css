@@ -19,6 +19,10 @@ main {
     gap: 3rem;
 }
 
+main:last-child {
+    margin-bottom: 4rem;
+}
+
 h1 {
     font-size: 5rem;
     font-family: "Knewave", sans-serif;
