@@ -50,19 +50,3 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         # User is not redirected after posting in modal
         return self.request.META.get('HTTP_REFERER', reverse_lazy("posts:home"))
-
-
-
-# @login_required
-# def new_post(request):
-#     if request.method == "POST":
-#         post = PostForm(request.POST)
-#         if post.is_valid():
-#             new_post = post.save(commit=False)
-#             new_post.author = request.user
-#             new_post.save()
-#             messages.success(request, "Post added successfully")
-#             return redirect(request.META.get('HTTP_REFERER', '/'))
-#         else:
-#             messages.error(request, 'Please fill out visible fields')
-

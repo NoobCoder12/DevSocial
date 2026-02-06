@@ -10,6 +10,8 @@ from backend.apps.posts.models import Post
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from backend.apps.posts.forms import PostForm
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -71,3 +73,20 @@ class UsersListView(LoginRequiredMixin, ListView):
             user.is_following = user.followers.filter(follower=self.request.user).exists()
 
         return context
+
+
+@login_required
+def add_bio(request):
+
+    if request.method != "POST":
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+
+    data = json.loads(request.body)
+    bio = data.get("bio")
+
+    user_profile = request.user.profile
+
+    user_profile.bio = bio
+    user_profile.save()
+
+    return JsonResponse({"success": "bio successfully updated"})

@@ -22,6 +22,7 @@
         <div class="nav flex-column nav-pills me-3 added-class-buttons bordered" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link nav-link-color active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</button>
             <button class="nav-link nav-link-color" id="v-pills-posts-tab" data-bs-toggle="pill" data-bs-target="#v-pills-posts" type="button" role="tab" aria-controls="v-pills-posts" aria-selected="false">Posts</button>
+            <button class="nav-link nav-link-color" id="v-pills-about-tab" data-bs-toggle="pill" data-bs-target="#v-pills-about" type="button" role="tab" aria-controls="v-pills-about" aria-selected="false">About</button>
         </div>
         
         <div class="tab-content" id="v-pills-tabContent">
@@ -98,10 +99,56 @@
                     </div>
                 </section>
             </div>
+            <div class="tab-pane fade" id="v-pills-about" role="tabpanel" aria-labelledby="v-pills-about-tab">
+                <section class='about'>
+                    <div class="about-header">
+                        <h3>About me</h3>
+                    </div>
+                    <div class="about-content">
+                        <p id="bio-text" onclick="enableEdit()">{{ request.user.profile.bio|default:"Share some informations..." }}</p>
+                        <textarea type="text" id="bio-input" style="display: none;" onblur="disableEdit()">{{ request.user.profile.bio }}</textarea>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 
 </div>
 
+<script>
+
+    function enableEdit() {
+        document.getElementById("bio-text").style.display = 'none';
+
+        const input = document.getElementById("bio-input");
+        input.style.display = "block";
+        input.focus();
+    }
+
+    function disableEdit() {
+        const input = document.getElementById("bio-input");
+        const text = document.getElementById("bio-text");
+        const newValue = input.value.trim();
+
+        text.textContent = newValue || "Share some informations...";
+        input.style.display = "none";
+        text.style.display = "block";
+
+        fetch("{% url 'users:add-bio' %}", {
+            method: "POST",
+            headers: {
+                    "X-CSRFToken": getCookie('csrftoken'),
+                    "Content-Type": 'application/json',
+                },
+            body: JSON.stringify({"bio": newValue}) // Safer to send values as dict
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Bio saved successfully")
+        })
+        .catch(err => console.error(err))
+    };
+
+</script>
 
 {% endblock %}

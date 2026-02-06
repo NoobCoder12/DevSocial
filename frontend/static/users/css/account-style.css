@@ -35,7 +35,8 @@ body {
     width: 10vw;
 }
 
-.account-info {
+.account-info,
+.about {
     display: flex;
     flex-direction: column;
     background-color: var(--section-background-color);
@@ -143,6 +144,32 @@ body {
     width: 25vw;
     gap: 1.5rem;
     overflow-y: auto;
+}
+
+.about-header {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 4rem;
+    margin-left: 2rem;
+    height: 40%;
+}
+
+.about-header h3 {
+    font-size: 3rem;
+}
+
+.about-content {
+    display: flex;
+    justify-content: center;
+    height: 90%;
+    margin-bottom: 5rem;
+}
+
+.about-content p,
+.about-content textarea {
+    width: 90%;
+    height: 100%;
+    border: 3px solid rgba(0, 0, 0, 0.121);
 }
 
 
