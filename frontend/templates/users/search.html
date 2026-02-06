@@ -14,13 +14,18 @@
 {% block body %}
 <div class='layout'>
     <main>
-        <h2>Users found</h2>
+        <h1>Users found</h1>
         <div class='search-results'>
             {% for user in results %}
             <div class='result'>
                 <div class='result-content'>
+                    {% if user.profile.profile_picture %}
+                        <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }} profile picture">
+                    {% else %}
+                        <img src="/media/profile_pictures/default_pic.jpg" alt="{{ user.username }} profile picture">
+                    {% endif %}
                     <p class='result-username'> {{ user.username }} </p>
-                    <i class="fa-solid fa-user-plus"></i>
+                    <i class="fa-solid fa-user-plus" data-username="{{ user.username }}"></i>
                 </div>
             </div>
                 {% empty %}
@@ -30,11 +35,30 @@
     </main>
 </div>
 
+
+<script src="{% static 'js/getCookie.js' %}"></script>
 <script>
 
     const followButtons = document.querySelectorAll('.fa-user-plus');
 
-    console.log()
+    followButtons.forEach((el) => {
+        el.addEventListener("click", () => {
+            const username = el.dataset.username
+            
+            fetch(`/interactions/user/${username}/follow/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie('csrftoken'),
+                    "Content-Type": 'application/json',
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                el.classList.toggle("followed", data.followed);
+            })
+            .catch(err => console.error(err));
+        });
+    });
 </script>
 
 {% endblock %}

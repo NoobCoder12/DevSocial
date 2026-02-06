@@ -134,13 +134,25 @@ main {
     align-items: center;
 }
 
+.result-content img {
+    width: 5vw;
+    border: 1px solid black;
+    box-shadow: 10px 10px 100px rgb(143, 139, 139);
+}
+
+.result-content .result-username {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+
 .fa-solid.fa-user-plus {
     font-size: 1.5rem;
     cursor: pointer;
 }
 
 .followed {
-    color: rgb(1, 95, 20);
+    color: rgb(159, 181, 164);
 }
 
 .bordered {
@@ -150,4 +162,12 @@ main {
 
 .nav-pills .nav-link.active {
     background-color: #212529bb;
+}
+
+.nav-pills .nav-link-color {
+    color: rgba(0, 0, 0, 0.589)
+}
+
+.nav-pills .nav-link-color:hover:not(.active) {
+    color: rgb(5, 5, 5);
 }

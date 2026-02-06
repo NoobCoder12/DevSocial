@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from backend.apps.posts.models import Post
-from .models import Like, Comment
+from .models import Like, Comment, Follow
 from django.http import JsonResponse
 import json
 from django.template.loader import render_to_string
+from django.contrib.auth.models import User
+
 
 # Create your views here.
+
 
 # Likes
 @login_required
@@ -58,3 +61,30 @@ def add_comment(request, slug):
         return JsonResponse({"status": "success", "html": html})
 
     return JsonResponse({"status": "error"}, status=400)
+
+
+# Follows
+@login_required
+def toggle_follow(request, username):
+
+    if request.method != "POST":
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+
+    follower = request.user
+    following = get_object_or_404(User, username=username)
+
+    # Shouldn't happen - user can't find himself in template
+    if follower == following:
+        return JsonResponse({"error": "Tou cannot follow yourself"}, status=400)
+
+    follow, created = Follow.objects.get_or_create(follower=follower, following=following)
+
+    if not created:
+        follow.delete()
+        followed = False
+    else:
+        followed = True
+
+    return JsonResponse({
+        'followed': followed,
+    })

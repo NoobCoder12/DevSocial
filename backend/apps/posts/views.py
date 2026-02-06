@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 # Create your views here.
 
@@ -16,8 +17,13 @@ class PostListView(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user).order_by("-date")
-
+        user = self.request.user
+        followed_ids = user.following.values_list("following", flat=True)    # Flat returns a list, not list of tuples
+        
+        return Post.objects.filter(Q(author=user) | Q(author_id__in=followed_ids)).select_related("author").order_by("-date")    # Without Q Django would treat it as AND
+        # author_id is created by Django, works like related_name, gets User id
+        # select_related gets all related data for authors to minimize quantity of queries
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Adding PostForm
