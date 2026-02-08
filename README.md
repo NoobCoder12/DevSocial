@@ -75,7 +75,7 @@ The project taught me:
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/NoobCoder12/DevSocial.git
 cd DevSocialApp
 ```
 
