@@ -75,7 +75,7 @@ def toggle_follow(request, username):
 
     # Shouldn't happen - user can't find himself in template
     if follower == following:
-        return JsonResponse({"error": "Tou cannot follow yourself"}, status=400)
+        return JsonResponse({"error": "You cannot follow yourself"}, status=400)
 
     follow, created = Follow.objects.get_or_create(follower=follower, following=following)
 

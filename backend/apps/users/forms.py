@@ -14,8 +14,8 @@ class CustomUserCreationForm(UserCreationForm):
             'password2': forms.PasswordInput(attrs={'class': "mb-3 row", 'placeholder': 'Confirm password'}),
         }
 
-        def clean_email(self):
-            email = self.cleaned_data.get('email')
-            if User.objects.filter(email='email').exists():
-                raise forms.ValidationError('This email is already in use')
-            return email
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('This email is already in use')
+        return email
