@@ -90,3 +90,23 @@ def add_bio(request):
     user_profile.save()
 
     return JsonResponse({"success": "bio successfully updated"})
+
+
+@login_required
+def update_photo(request):
+    if request.method != "POST":
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+    
+    file = request.FILES.get("profile_picture")
+    
+    if not file:
+        return JsonResponse({'error': 'No file provided'}, status=400)
+    
+    profile = request.user.profile
+    profile.profile_picture = file
+    profile.save()
+    
+    return JsonResponse({
+        "success": "Photo successfully updated",
+        "new_url": profile.profile_picture.url
+        })

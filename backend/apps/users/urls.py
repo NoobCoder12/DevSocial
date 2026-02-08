@@ -12,4 +12,5 @@ urlpatterns = [
    path('my-account/', views.my_account, name='my-account'),
    path('search-user/', views.UsersListView.as_view(), name='search-user'),
    path('add-bio/', views.add_bio, name="add-bio"),
+   path('update-photo/', views.update_photo, name="update-photo"),
 ]

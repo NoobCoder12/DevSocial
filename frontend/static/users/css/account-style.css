@@ -58,6 +58,7 @@ body {
     width: 30%;
     margin-top: 1rem;
     box-shadow: 3px 3px rgba(233, 231, 231, 0.963);
+    cursor: pointer;
 }
 
 

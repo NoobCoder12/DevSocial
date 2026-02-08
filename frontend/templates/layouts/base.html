@@ -50,7 +50,7 @@
       <ul class='navbar-nav ms-auto'>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{ request.user.profile.profile_picture.url }}" alt="{{ request.user }} profile picture"> {{ request.user }}
+            <img src="{{ request.user.profile.profile_picture.url }}" id="navbar-profile-picture" alt="{{ request.user }} profile picture"> {{ request.user }}
           </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="{% url 'users:my-account' %}">My account</a></li>
