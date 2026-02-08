@@ -5,7 +5,6 @@ DevSocialApp is a social media platform designed for developers to share posts, 
 ## Why this stack?
 I wanted to build a full-featured social platform while learning Django's ecosystem end-to-end. Using Django for both backend and frontend allowed me to understand how this framework handles everything from database models to template rendering. I chose Bootstrap 5 for the frontend to focus on backend logic rather than CSS, and SQLite made development fast without the overhead of setting up a separate database server.
 
-
 The project taught me:
 - How Django's ORM handles complex relationships (users, posts, comments, follows)
 - Managing user authentication and permissions in Django
@@ -76,7 +75,7 @@ The project taught me:
 
 ```bash
 git clone https://github.com/NoobCoder12/DevSocial.git
-cd DevSocialApp
+cd DevSocial
 ```
 
 ### 2. Create a Virtual Environment
@@ -140,10 +139,10 @@ The application will be accessible at `http://127.0.0.1:8000/`.
 
 Things I'd add if I continue this project:
 
-- Detailed view of other users profile
+- Detailed view of other users' profiles
 - Notifications about interaction with your post or profile
 - Adding direct messages system
-- Hashtag systems for post discovery
+- Hashtag system for post discovery
 - API endpoints
 - PostgreSQL for production deployment
 
