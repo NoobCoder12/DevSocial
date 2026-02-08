@@ -178,10 +178,31 @@
                 navBarPhoto.src = data.new_url;
                 console.log("Photo changed to: ", data.new_url)
 
+                // Show toast
+                const container = document.querySelector(".toast-container");
+                if (container) {
+                    const toastHTML = `<div class="toast bg-success text-white border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+                                        <div class="d-flex">
+                                        <div class="toast-body">
+                                        Photo updated successfully
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                </div>`
+
+                    container.insertAdjacentHTML('beforeend', toastHTML);
+
+                    const newToast = container.lastElementChild;
+                    new bootstrap.Toast(newToast).show();
+                }
+
+
+
             })
             .catch(err => console.error(err))
         }
     })
+
 
 
 

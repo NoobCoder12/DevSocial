@@ -23,6 +23,7 @@ def login_view(request):
             user_data = login_form.get_user()
             login(request, user_data)
             next_url = request.POST.get('next')
+            messages.success(request, "User logged in successfully")
             return redirect(next_url or 'posts:home')
     else:
         login_form = AuthenticationForm()

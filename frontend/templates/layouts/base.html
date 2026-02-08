@@ -97,26 +97,7 @@
 
     {% endblock %}
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        {% for message in messages %}
-          <div class="toast bg-{{ message.tags }} text-white border-0 shadow"
-              role="alert"
-              aria-live="assertive"
-              aria-atomic="true"
-              data-bs-delay="4000">
-
-              <div class="d-flex">
-                  <div class="toast-body">
-                      {{ message }}
-                  </div>
-                  <button type="button"
-                          class="btn-close btn-close-white me-2 m-auto"
-                          data-bs-dismiss="toast"
-                          aria-label="Close"></button>
-              </div>
-          </div>
-      {% endfor %}
-      </div>
+    {% include 'partials/message.html'%}
 
     <footer>
       <p>TODO</p>
