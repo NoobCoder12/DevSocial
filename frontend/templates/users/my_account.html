@@ -10,30 +10,181 @@
 {% endblock %}
 
 {% block body %}
-<div class="my-account-layout">
+<div class="account-title-div">
     <h1 class='account-title'>
         My account
     </h1>
-
-    <div class='account-info'>
-        <img src="{{ profile.profile_picture.url }}" alt="{{ request.user.username }}" class='account-photo'>
-        <div class='account-username'>
-            <p class='label'>Username</p>
-            <p class='account-data'> {{ request.user }} </p>
-        </div>
-        <div class='account-email'>
-            <p class='label'>Email</p>
-            <p class='account-data'> {{ request.user.email }} </p>
-        </div>
-        <div class='account-bio'>
-            <p class='label'>Bio</p>
-            <p class='account-data'> {{ profile.bio }}</p>
-        </div>
-    </div>
-    <div class='account-posts'>
-        <p>number of posts</p>
-        <p>number of likes</p>
-    </div>
 </div>
+
+<div class='main-page'>
+
+    <div class="d-flex align-items-start added-gap">
+        <div class="nav flex-column nav-pills me-3 added-class-buttons bordered" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link nav-link-color active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</button>
+            <button class="nav-link nav-link-color" id="v-pills-posts-tab" data-bs-toggle="pill" data-bs-target="#v-pills-posts" type="button" role="tab" aria-controls="v-pills-posts" aria-selected="false">Posts</button>
+            <button class="nav-link nav-link-color" id="v-pills-about-tab" data-bs-toggle="pill" data-bs-target="#v-pills-about" type="button" role="tab" aria-controls="v-pills-about" aria-selected="false">About</button>
+        </div>
+        
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                 <section class="account-info">
+                    <div class="account-info-photo">
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile picture of {{ request.user.username }}" id="profile-pic-preview" class='account-photo'>
+                        <input type="file" id="profile-pic-input" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="account-stats">
+                        <div class="followers">
+                            <p class='label'>Followers</p>
+                            <div class="stats-number">
+                                <p class='account-data'>{{ request.user.followers.count }}</p>
+                            </div>
+                        </div>
+                        <div class="following">
+                            <p class='label'>Following</p>
+                            <div class="stats-number">
+                                <p class='account-data'>{{ request.user.following.count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='account-info-username border-step4'>
+                        <p class='label'>Username:</p>
+                        <p class='account-data'>{{ request.user }}</p>
+                    </div>
+
+                    <div class='account-info-email'>
+                        <p class='label'>Email:</p>
+                        {% if request.user.email %}
+                            <p class='account-data'>{{ request.user.email }}</p>
+                        {% else %}
+                            <p class='account-data'>testdata@test.com</p>
+                        {% endif %}
+                    </div>
+                    
+                    {% comment %} <div class='account-info-bio'>
+                        <p class='label'>Bio</p>
+                        <p class='account-data'>{{ profile.bio }}</p>
+                    </div> {% endcomment %}
+                </section>
+            </div>
+            <div class="tab-pane fade" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <section class='posts-info'>
+                    <div class='posts-info-number'>
+                        <p class="label">Number of posts:</p>
+                        <p class="posts-data-number">{{ posts.count }}</p>
+                    </div>
+                    <div class='posts-info-posts'>
+                        <p class="label">Posts:</p>
+
+                        <div class="account-posts-list">
+                        {% for post in posts %}
+                            <div class="account-post">
+                                <div class="account-post-header">
+                                    <p class='post-body'>{{ post.body }}</p>
+                                    <p class='post-date'>{{ post.date }}</p>
+                                </div>
+                                <div class="icons">
+                                    <div class="likes-section">
+                                        <span class='likes-count'>{{ post.likes.count }}</span>
+                                        <i class="fa-solid fa-heart {% if post.user_liked %}liked{% endif %}" data-slug="{{ post.slug }}"></i>
+                                    </div>
+                                    <div class="comments-section">
+                                        <span class="comments-count">{{ post.comments.count }}</span>
+                                        <i class="fa-solid fa-comment" data-post-slug="{{ post.slug }}"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>No posts yet.</p>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="v-pills-about" role="tabpanel" aria-labelledby="v-pills-about-tab">
+                <section class='about'>
+                    <div class="about-header">
+                        <h3>About me</h3>
+                    </div>
+                    <div class="about-content">
+                        <p id="bio-text" onclick="enableEdit()">{{ request.user.profile.bio|default:"Share some informations..." }}</p>
+                        <textarea type="text" id="bio-input" style="display: none;" onblur="disableEdit()">{{ request.user.profile.bio }}</textarea>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function enableEdit() {
+        document.getElementById("bio-text").style.display = 'none';
+
+        const input = document.getElementById("bio-input");
+        input.style.display = "block";
+        input.focus();
+    }
+
+    function disableEdit() {
+        const input = document.getElementById("bio-input");
+        const text = document.getElementById("bio-text");
+        const newValue = input.value.trim();
+
+        text.textContent = newValue || "Share some informations...";
+        input.style.display = "none";
+        text.style.display = "block";
+
+        fetch("{% url 'users:add-bio' %}", {
+            method: "POST",
+            headers: {
+                    "X-CSRFToken": getCookie('csrftoken'),
+                    "Content-Type": 'application/json',
+                },
+            body: JSON.stringify({"bio": newValue}) // Safer to send values as dict
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Bio saved successfully")
+        })
+        .catch(err => console.error(err))
+    };
+
+    const profilePicture = document.getElementById("profile-pic-preview");
+    const input = document.getElementById("profile-pic-input");
+
+    profilePicture.addEventListener("click", () => {
+        input.click();  // Simulating hidden input click
+    })
+
+    input.addEventListener("change", () => {
+        if (input.files && input.files[0]) {    // .files for pictures, not .value. .files is a list
+            const formData = new FormData();
+
+            formData.append("profile_picture", input.files[0]); // Creating dict, key: value
+
+            fetch("{% url 'users:update-photo' %}", {
+                method: "POST",
+                headers: { 
+                    "X-CSRFToken": getCookie("csrftoken")   // Content-Type: multipart/form-data browser sends this header
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                profilePicture.src = data.new_url;
+
+                const navBarPhoto = document.getElementById("navbar-profile-picture");
+                navBarPhoto.src = data.new_url;
+                console.log("Photo changed to: ", data.new_url)
+
+            })
+            .catch(err => console.error(err))
+        }
+    })
+
+
+
+</script>
 
 {% endblock %}

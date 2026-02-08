@@ -6,6 +6,12 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Profile
+from backend.apps.posts.models import Post
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from backend.apps.posts.forms import PostForm
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -42,12 +48,65 @@ def create_user(request):
 @login_required
 def my_account(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
-    return render(request, 'users/my_account.html', {"profile": profile})
+    posts = Post.objects.filter(author=request.user).order_by("-date")
+    return render(request, 'users/my_account.html', {"profile": profile, "posts": posts})
+
+
+class UsersListView(LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'users/search.html'
+    context_object_name = 'results'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            return User.objects.filter(username__icontains=query).exclude(id=self.request.user.id)
+
+        return User.objects.none()  # Not to show evety user at the start
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Adding PostForm
+        context["post_form"] = PostForm()
+
+        for user in context['results']:
+            user.is_following = user.followers.filter(follower=self.request.user).exists()
+
+        return context
+
 
 @login_required
-def search_user(request):
-    query = request.GET.get('q', '')
-    results = []
-    if query:
-        results = User.objects.filter(username__icontains=query).exclude(id=request.user.id)
-    return render(request, "users/search.html", {'results': results})
+def add_bio(request):
+
+    if request.method != "POST":
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+
+    data = json.loads(request.body)
+    bio = data.get("bio")
+
+    user_profile = request.user.profile
+
+    user_profile.bio = bio
+    user_profile.save()
+
+    return JsonResponse({"success": "bio successfully updated"})
+
+
+@login_required
+def update_photo(request):
+    if request.method != "POST":
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+    
+    file = request.FILES.get("profile_picture")
+    
+    if not file:
+        return JsonResponse({'error': 'No file provided'}, status=400)
+    
+    profile = request.user.profile
+    profile.profile_picture = file
+    profile.save()
+    
+    return JsonResponse({
+        "success": "Photo successfully updated",
+        "new_url": profile.profile_picture.url
+        })

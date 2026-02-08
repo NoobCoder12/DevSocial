@@ -1,54 +1,184 @@
-.my-account-layout {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas: "title title title"
-    " info posts posts";
-    column-gap: 4rem;
-    row-gap: 7rem;
-    padding: 0 5rem;
+:root {
+    --section-width: 30vw;
+    --margin-account-info-elements: 0 5rem;
+    --border-radius-account-info-elements: 10px;
+    --width-account-info-elements: 65%;
+    --section-height: 70vh;
+    --section-box-shadow: 10px 10px 10px;
+    --section-background-color: white;
 }
 
-.account-title {
-    grid-area: title;
+body {
+    width: 100%;
+}
+
+.account-title-div {
     display: flex;
     justify-content: center;
-    background-color: red;
+    margin-bottom: 5rem;
+}
+
+.main-page {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding-bottom: 4rem;
+}
+
+.account-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.added-class-buttons {
+    background-color: white;
+    width: 10vw;
+}
+
+.account-info,
+.about {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--section-background-color);
+    width: var(--section-width);
+    gap: 2rem;
+    height: var(--section-height);
+    border-radius: var(--border-radius-account-info-elements);
+    box-shadow: var(--section-box-shadow)
+}
+
+.account-info-photo {
+    display: flex;
+    justify-content: center;
 }
 
 .account-photo {
     border: 1px solid rgba(233, 231, 231, 0.963);
     border-radius: 50%;
-    height: 20%;
+    width: 30%;
     margin-top: 1rem;
     box-shadow: 3px 3px rgba(233, 231, 231, 0.963);
+    cursor: pointer;
 }
 
-.account-info {
-    grid-area: info;
+
+
+.account-info-email,
+.account-info-username,
+.account-info-bio {
     display: flex;
-    padding: auto;
-    margin-inline-start: 1rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2rem;
-    border: 1px solid black;
-    height: 60vh;
-    width: 20vw;
-    border-radius: 10px;
-    background-color: white;
+    gap: 3rem;
+    justify-content: space-between;
+    margin: var(--margin-account-info-elements);
+    border-radius: var(--border-radius-account-info-elements);
+    width: var(--width-account-info-elements);
 }
 
-.account-posts {
-    grid-area: posts;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 10px;
+.account-info-username .label,
+.account-info-email .label,
+.account-info-username .account-data,
+.account-info-email .account-data  {
+    font-size: 1.5rem;
 }
+
+.account-info-username .label,
+.account-info-email .label {
+    color: rgba(150, 143, 143, 0.977);
+}
+
+.account-info-username .account-data,
+.account-info-email .account-data {
+    color: rgba(0, 0, 0, 0.927);
+}
+
+.account-stats {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 8rem;
+}
+
+.stats-number {
+    display: flex;
+    justify-content: center;
+}
+
+.stats-number p {
+    font-size: 3.5rem;
+}
+
+.account-stats .label {
+    font-size: 1.8rem;
+}
+
+.added-gap {
+    gap: 4rem;
+}
+
+.posts-info {
+    width: var(--section-width);
+    background-color: var(--section-background-color);
+    height: var(--section-height);
+    border-radius: var(--border-radius-account-info-elements);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--section-box-shadow)
+}
+
+.posts-info-number {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+}
+
+.posts-data-number {
+    font-size: 3.7rem;
+}
+
+
+.account-posts-list {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 25vw;
+    gap: 1.5rem;
+    overflow-y: auto;
+}
+
+.about-header {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 4rem;
+    margin-left: 2rem;
+    height: 40%;
+}
+
+.about-header h3 {
+    font-size: 3rem;
+}
+
+.about-content {
+    display: flex;
+    justify-content: center;
+    height: 90%;
+    margin-bottom: 5rem;
+}
+
+.about-content p,
+.about-content textarea {
+    width: 90%;
+    height: 100%;
+    border: 3px solid rgba(0, 0, 0, 0.121);
+}
+
 
 .layout {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 main {
@@ -77,9 +207,62 @@ main {
     justify-content: center;
     padding: 3rem;
     gap: 10rem;
+    box-shadow: 10px 10px 10px;
+    background-color: white;
 }
 
+.result-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-content img {
+    width: 5vw;
+    border: 1px solid black;
+    box-shadow: 10px 10px 100px rgb(143, 139, 139);
+}
+
+.result-content .result-username {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+
 .fa-solid.fa-user-plus {
+    font-size: 1.5rem;
     cursor: pointer;
 }
+
+.followed {
+    color: rgb(159, 181, 164);
+}
+
+.bordered {
+    border: 3px solid rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #212529bb;
+}
+
+.nav-pills .nav-link-color {
+    color: rgba(0, 0, 0, 0.589)
+}
+
+.nav-pills .nav-link-color:hover:not(.active) {
+    color: rgb(5, 5, 5);
+}
+
+.account-post {
+    border: 3px solid black;
+    border-radius: 15px;
+    width: 20vw;
+    padding: 0.5rem 0 0.8rem 1rem;
+}
+
+
+
 

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -19,3 +20,11 @@ class CustomUserCreationForm(UserCreationForm):
             if User.objects.filter(email='email').exists():
                 raise forms.ValidationError('This email is already in use')
             return email
+
+
+# class ProfilePicForm(forms.ModelForm):
+#     profile_image = forms.ImageField(label="Profile picture")
+
+#     class Meta:
+#         model = Profile
+#         fields = ('profile_image',)
