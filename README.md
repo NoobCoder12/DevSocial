@@ -40,11 +40,10 @@ The project taught me:
 │   │   ├── interactions/    # Likes, comments, and follow system
 │   │   ├── posts/           # Post creation and feed logic
 │   │   └── users/           # User management, profiles, and authentication
-│   ├── config/
-│   │   ├── settings.py      # Django settings
-│   │   ├── urls.py          # URL routing
-│   │   └── wsgi.py          # WSGI configuration
-│   └── db.sqlite3           # SQLite database
+│   └── config/
+│       ├── settings.py      # Django settings
+│       ├── urls.py          # URL routing
+│       └── wsgi.py          # WSGI configuration
 │
 ├── frontend/
 │   ├── static/
@@ -59,13 +58,10 @@ The project taught me:
 │       ├── posts/           # Post-related templates
 │       └── users/           # User-related templates
 │
-├── media/
-│   └── profile_pictures/    # User-uploaded profile pictures
-│       └── default_pic.jpg
-│
 ├── manage.py                # Django's command-line utility
 ├── requirements.txt         # Python dependencies
-├── env.example              # Environment variables template
+├── .env.example             # Environment variables template
+├── .gitignore
 └── README.md
 ```
 
