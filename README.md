@@ -140,8 +140,8 @@ The application will be accessible at `http://127.0.0.1:8000/`.
 Things I'd add if I continue this project:
 
 - Detailed view of other users' profiles
-- Notifications about interaction with your post or profile
-- Adding direct messages system
+- Notifications about interactions with your post or profile
+- Direct messages system
 - Hashtag system for post discovery
 - API endpoints
 - PostgreSQL for production deployment
