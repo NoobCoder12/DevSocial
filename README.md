@@ -33,17 +33,41 @@ The project taught me:
 - **Other**: `python-dotenv` for environment variable management, `Pillow` for image handling.
 
 ## Project Structure
-
-- `backend/`: Contains the Django project configuration and applications.
-  - `apps/`:
-    - `users/`: User management, profiles, and authentication.
-    - `posts/`: Post creation and feed logic.
-    - `interactions/`: Likes, comments, and follow system.
-  - `config/`: Project settings and URL routing.
-- `frontend/`: Contains static files and HTML templates.
-  - `static/`: CSS, JavaScript, and images.
-  - `templates/`: Django templates for rendering the UI.
-- `manage.py`: Django's command-line utility.
+```
+.
+├── backend/
+│   ├── apps/
+│   │   ├── interactions/    # Likes, comments, and follow system
+│   │   ├── posts/           # Post creation and feed logic
+│   │   └── users/           # User management, profiles, and authentication
+│   ├── config/
+│   │   ├── settings.py      # Django settings
+│   │   ├── urls.py          # URL routing
+│   │   └── wsgi.py          # WSGI configuration
+│   └── db.sqlite3           # SQLite database
+│
+├── frontend/
+│   ├── static/
+│   │   ├── css/             # Stylesheets
+│   │   ├── images/          # Static images
+│   │   ├── js/              # JavaScript files
+│   │   ├── posts/           # Post-related static files
+│   │   └── users/           # User-related static files
+│   └── templates/
+│       ├── layouts/         # Base templates
+│       ├── partials/        # Reusable template components
+│       ├── posts/           # Post-related templates
+│       └── users/           # User-related templates
+│
+├── media/
+│   └── profile_pictures/    # User-uploaded profile pictures
+│       └── default_pic.jpg
+│
+├── manage.py                # Django's command-line utility
+├── requirements.txt         # Python dependencies
+├── env.example              # Environment variables template
+└── README.md
+```
 
 ## Setup Instructions
 
