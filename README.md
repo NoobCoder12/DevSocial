@@ -39,6 +39,8 @@ The project taught me:
 ```
 .
 ├── .github/workflows
+│   └── django-tests.yml     # Config file for GitHub Actions
+│    
 ├── backend/
 │   ├── apps/
 │   │   ├── interactions/    # Likes, comments, and follow system
