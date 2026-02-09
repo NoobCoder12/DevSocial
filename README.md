@@ -34,7 +34,6 @@ The project taught me:
 - **Testing**: 
   - **Pytest-Django**: For robust integration testing.
   - **Model Bakery**: For efficient test data generation and relationship handling.
-- **Other**: `python-dotenv` for environment variable management, `Pillow` for image handling.
 
 ## Project Structure
 ```
@@ -44,7 +43,9 @@ The project taught me:
 │   ├── apps/
 │   │   ├── interactions/    # Likes, comments, and follow system
 │   │   ├── posts/           # Post creation and feed logic
-│   │   └── users/           # User management, profiles, and authentication
+│   │   ├── users/           # User management, profiles, and authentication
+│   │   └── conftest.py      # Config file for fixtures
+│   │
 │   └── config/
 │       ├── settings.py      # Django settings
 │       ├── urls.py          # URL routing
@@ -62,7 +63,8 @@ The project taught me:
 │       ├── partials/        # Reusable template components
 │       ├── posts/           # Post-related templates
 │       └── users/           # User-related templates
-├── pytest.ini
+│
+├── pytest.ini               # Pytest configuration file
 ├── manage.py                # Django's command-line utility
 ├── requirements.txt         # Python dependencies
 ├── .env.example             # Environment variables template
@@ -87,7 +89,7 @@ To run tests locally with coverage:
   pytest --cov=backend/apps --cov-report=term-missing
   ```
 
-All test files are located in app's folders
+All test files are located in app's folders.
 
 ## Setup Instructions
 
