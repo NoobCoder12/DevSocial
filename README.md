@@ -1,5 +1,7 @@
 # DevSocialApp
 
+[![Django CI](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml/badge.svg)](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml)
+
 DevSocialApp is a social media platform designed for developers to share posts, interact with each other through likes and comments, and follow their peers.
 
 ## Why this stack?
@@ -29,11 +31,15 @@ The project taught me:
 - **Backend**: Django (Python)
 - **Frontend**: Django Templates, Bootstrap 5
 - **Database**: SQLite (default)
+- **Testing**: 
+  - **Pytest-Django**: For robust integration testing.
+  - **Model Bakery**: For efficient test data generation and relationship handling.
 - **Other**: `python-dotenv` for environment variable management, `Pillow` for image handling.
 
 ## Project Structure
 ```
 .
+├── .github/workflows
 ├── backend/
 │   ├── apps/
 │   │   ├── interactions/    # Likes, comments, and follow system
@@ -56,13 +62,32 @@ The project taught me:
 │       ├── partials/        # Reusable template components
 │       ├── posts/           # Post-related templates
 │       └── users/           # User-related templates
-│
+├── pytest.ini
 ├── manage.py                # Django's command-line utility
 ├── requirements.txt         # Python dependencies
 ├── .env.example             # Environment variables template
 ├── .gitignore
 └── README.md
 ```
+
+## Testing & Quality Assurance
+
+To ensure the reliability of the social interactions and data integrity, the project includes an automated test suite:
+
+- **Integration Tests**: Built with `Pytest`, covering core logic like user creation, post publishing, and interactions.
+- **Data Factories**: Uses `Model Bakery` to handle complex relationships.
+- **Data Integrity**: Includes tests for database-level constraints, such as:
+    - **Uniqueness**: Preventing duplicate likes/follows.
+    - **Business Logic**: Using `CheckConstraints` to prevent users from following themselves.
+- **CI/CD Pipeline**: Fully automated testing via **GitHub Actions**. Every `push` and `pull request` triggers the test suite, including database migrations and coverage reporting.
+
+To run tests locally with coverage:
+
+  ```
+  pytest --cov=backend/apps --cov-report=term-missing
+  ```
+
+All test files are located in app's folders
 
 ## Setup Instructions
 
