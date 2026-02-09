@@ -34,6 +34,14 @@ class Follow(models.Model):
     class Meta:
         unique_together = ("follower", "following")
         ordering = ["-created_at"]
+        # Constraint to prevent self follow on database level
+        constraints = [
+            models.CheckConstraint(
+                # Object needed to negate it with ~, constraint doesn't accept other symbols than =
+                condition=~models.Q(follower=models.F("following")),    # models.F checks value in column 'following' for the same row
+                name="prevent_self_follow"
+            )
+        ]
         
     def __str__(self):
         return f"{self.follower.username} follows {self.following.username}"
