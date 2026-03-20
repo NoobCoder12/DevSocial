@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'backend.apps.users',
     'backend.apps.posts',
     'backend.apps.interactions',
+    "rest_framework",
+    "drf_spectacular"
 ]
 
 MIDDLEWARE = [
@@ -149,4 +151,11 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
