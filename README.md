@@ -2,10 +2,12 @@
 
 [![Django CI](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml/badge.svg)](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml)
 
+> Version 1.1.0
+
 DevSocialApp is a social media platform designed for developers to share posts, interact with each other through likes and comments, and follow their peers.
 
 ## Why this stack?
-I wanted to build a full-featured social platform while learning Django's ecosystem end-to-end. Using Django for both backend and frontend allowed me to understand how this framework handles everything from database models to template rendering. I chose Bootstrap 5 for the frontend to focus on backend logic rather than CSS, and SQLite made development fast without the overhead of setting up a separate database server.
+I wanted to build a full-featured social platform while learning Django's ecosystem end-to-end. Using Django for both backend and frontend allowed me to understand how this framework handles everything from database models to template rendering. I chose Bootstrap 5 for the frontend to focus on backend logic rather than CSS, and PostgreSQL was chosen for its reliability and production-readiness, with Docker handling the setup overhead.
 
 The project taught me:
 - How Django's ORM handles complex relationships (users, posts, comments, follows)
@@ -30,10 +32,11 @@ The project taught me:
 
 - **Backend**: Django (Python)
 - **Frontend**: Django Templates, Bootstrap 5
-- **Database**: SQLite (default)
+- **Database**: PostgreSQL
 - **Testing**: 
   - **Pytest-Django**: For robust integration testing.
   - **Model Bakery**: For efficient test data generation and relationship handling.
+- **DevOps**: Docker    
 
 ## Project Structure
 ```
@@ -71,6 +74,9 @@ The project taught me:
 ├── requirements.txt         # Python dependencies
 ├── .env.example             # Environment variables template
 ├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── init.sql
 └── README.md
 ```
 
@@ -95,11 +101,6 @@ All test files are located in app's folders.
 
 ## Setup Instructions
 
-### Prerequisites
-
-- Python 3.8 or higher
-- `pip` (Python package installer)
-
 ### 1. Clone the repository
 
 ```bash
@@ -107,59 +108,20 @@ git clone https://github.com/NoobCoder12/DevSocial.git
 cd DevSocial
 ```
 
-### 2. Create a Virtual Environment
-
-It is recommended to use a virtual environment to manage dependencies:
+### 2. Create `.env` based on `.env.example`
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+DJANGO_SECRET_KEY=your-secret-key-here
+POSTGRES_USER=name
+POSTGRES_PASSWORD=password
+POSTGRES_DB=database-name
 ```
 
-### 3. Install Dependencies
 
-Install the required Python packages using `requirements.txt`:
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Environment Variables
-
-Create a `.env` file in the root directory based on the `.env.example` file:
+### 3. Run Docker
 
 ```bash
-cp .env.example .env
-```
-
-Open the `.env` file and set your `DJANGO_SECRET_KEY`. You can generate a secret key using:
-
-```bash
-python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-```
-
-### 5. Database Migrations
-
-Run the following commands to set up your database:
-
-```bash
-python manage.py migrate
-```
-
-### 6. Create a Superuser (Optional)
-
-To access the Django admin interface:
-
-```bash
-python manage.py createsuperuser
-```
-
-### 7. Run the Development Server
-
-Start the server using:
-
-```bash
-python manage.py runserver
+docker compose up
 ```
 
 The application will be accessible at `http://127.0.0.1:8000/`.
@@ -173,7 +135,12 @@ Things I'd add if I continue this project:
 - Direct messages system
 - Hashtag system for post discovery
 - API endpoints
-- PostgreSQL for production deployment
+
+## Changelog
+
+### v1.1.0
+- Environment created in Docker
+- Base changed to PostgreSQL
 
 ## License
 
