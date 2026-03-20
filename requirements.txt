@@ -28,6 +28,7 @@ lz4==4.4.5
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
 mdurl==0.1.2
+model-bakery==1.23.3
 narwhals==2.8.0
 numpy==2.3.3
 packaging==25.0
