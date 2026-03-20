@@ -115,6 +115,7 @@ DJANGO_SECRET_KEY=your-secret-key-here
 POSTGRES_USER=name
 POSTGRES_PASSWORD=password
 POSTGRES_DB=database-name
+POSTGRES_HOST=localhost
 ```
 
 
