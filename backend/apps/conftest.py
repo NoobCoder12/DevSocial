@@ -1,3 +1,10 @@
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.config.settings")
+
+import django
+# Initializing django before any other apps
+django.setup()
+
 import pytest
 from model_bakery import baker
 

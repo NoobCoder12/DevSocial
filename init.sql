@@ -1,0 +1,1 @@
+CREATE DATABASE devsocial_db_test;
