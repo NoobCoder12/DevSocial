@@ -1,9 +1,9 @@
-import pytest
 import django
-from model_bakery import baker
-
 # Initializing django before any other apps
 django.setup()
+
+import pytest
+from model_bakery import baker
 
 
 @pytest.fixture
