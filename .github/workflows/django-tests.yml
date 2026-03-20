@@ -8,6 +8,26 @@ jobs:
   test:
     runs-on: ubuntu-latest  # Fastest option
 
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6   # Copies code on VM
@@ -25,6 +45,9 @@ jobs:
       - name: Run migrations
         env:    # Create env at virtual machine
             DJANGO_SETTINGS_MODULE: backend.config.settings # Show where is the brain of the project
+            POSTGRES_USER: test_user
+            POSTGRES_PASSWORD: test_password
+            POSTGRES_DB: test_db
         run: |
             python manage.py migrate
         
@@ -33,5 +56,8 @@ jobs:
         env:
           DJANGO_SETTINGS_MODULE: backend.config.settings
           PYTHONPATH: ${{ github.workspace }}  # github.workspace is a root dir, safe config
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
         run: |
             pytest --cov=backend/apps --cov-report=term-missing
