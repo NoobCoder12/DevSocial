@@ -2,7 +2,7 @@
 
 [![Django CI](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml/badge.svg)](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml)
 
-> Version 1.1.0
+> Version 1.2.0
 
 DevSocialApp is a social media platform designed for developers to share posts, interact with each other through likes and comments, and follow their peers.
 
@@ -27,10 +27,11 @@ The project taught me:
   - Comment on posts.
   - Follow and unfollow other users.
 - **Search**: Search for other developers on the platform.
+- **REST API**: JWT-secured API endpoints for posts, feed and user management.    
 
 ## Technology Stack
 
-- **Backend**: Django (Python)
+- **Backend**: Django (Python), Django Rest Framework (DRF)
 - **Frontend**: Django Templates, Bootstrap 5
 - **Database**: PostgreSQL
 - **Testing**: 
@@ -46,6 +47,7 @@ The project taught me:
 │    
 ├── backend/
 │   ├── apps/
+│   │   ├── api/             # REST API endpoints
 │   │   ├── interactions/    # Likes, comments, and follow system
 │   │   ├── posts/           # Post creation and feed logic
 │   │   ├── users/           # User management, profiles, and authentication
@@ -135,9 +137,14 @@ Things I'd add if I continue this project:
 - Notifications about interactions with your post or profile
 - Direct messages system
 - Hashtag system for post discovery
-- API endpoints
 
 ## Changelog
+
+### v1.2.0
+- Django Rest Framework added
+- JWT Authentication for most endpoints
+- REST API endpoints for posts, feed and user management
+- Signals for Profile creation while User is created
 
 ### v1.1.0
 - Environment created in Docker
