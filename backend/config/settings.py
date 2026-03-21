@@ -15,6 +15,7 @@ from django.urls import reverse_lazy
 from dotenv import load_dotenv
 import os
 from django.contrib.messages import constants as messages
+from datetime import timedelta
 
 load_dotenv()
 
@@ -47,7 +48,8 @@ INSTALLED_APPS = [
     'backend.apps.posts',
     'backend.apps.interactions',
     "rest_framework",
-    "drf_spectacular"
+    "drf_spectacular",
+    "backend.apps.api",
 ]
 
 MIDDLEWARE = [
@@ -154,8 +156,17 @@ MESSAGE_TAGS = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',   # Setting for Swagger
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+        'rest_framework_simplejwt.authentication.JWTAuthentication',    # JWT Authentication
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',   # Basic permission
+    ]
+}
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }

@@ -25,7 +25,10 @@ urlpatterns = [
     path('', include('backend.apps.posts.urls')),
     path('login/', include('backend.apps.users.urls')),
     path('interactions/', include('backend.apps.interactions.urls')),
+    path("api/", include("backend.apps.api.urls")),
 ]
 
+# Serve media files (e.g. profile pictures) only in development
+# In production served by nginx
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
