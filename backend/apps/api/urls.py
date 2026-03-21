@@ -10,6 +10,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('user', views.CurrentUserViewSet, basename="user")
 router.register('posts', views.UserPostViewSet, basename="posts")
+router.register('feed', views.FeedViewSet, basename='feed')
 
 
 urlpatterns = [
