@@ -50,6 +50,7 @@ jobs:
             POSTGRES_PASSWORD: test_password
             POSTGRES_DB: test_db
             POSTGRES_HOST: localhost
+            DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
         run: |
             python manage.py migrate
         
@@ -62,5 +63,6 @@ jobs:
           POSTGRES_PASSWORD: test_password
           POSTGRES_DB: test_db
           POSTGRES_HOST: localhost
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
         run: |
             pytest --cov=backend/apps --cov-report=term-missing

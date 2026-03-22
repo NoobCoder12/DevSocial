@@ -4,7 +4,7 @@ from backend.apps.posts.models import Post
 
 
 class UserSerializer(serializers.ModelSerializer):
-    followers_count = serializers.SerializerMethodField()   # DRF ignores "get_" and sends the value to proper variable
+    followers_count = serializers.SerializerMethodField()   # DRF looks for a method named 'get_<field_name>'
     following_count = serializers.SerializerMethodField()
 
     def get_followers_count(self, obj):
