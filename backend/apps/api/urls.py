@@ -12,6 +12,7 @@ router = DefaultRouter()
 router.register('user', views.CurrentUserViewSet, basename="user")
 router.register('posts', views.UserPostViewSet, basename="posts")
 router.register('feed', views.FeedViewSet, basename='feed')
+router.register('likes', views.LikeViewSet, basename='likes')
 
 
 urlpatterns = [
@@ -20,5 +21,8 @@ urlpatterns = [
     # path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path("token/", TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
+
+    # Refresh token is sent to a black list, new table with blacklisted tokens is created
+    # Access token (15min) remains valid until expiry.
+    path('token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
 ]

@@ -42,10 +42,10 @@ class Follow(models.Model):
                 name="prevent_self_follow"
             )
         ]
-        
+
     def __str__(self):
         return f"{self.follower.username} follows {self.following.username}"
-    
+
     def clean(self):
         if self.follower == self.following:
             raise ValidationError("You can't follow yourself!")
