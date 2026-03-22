@@ -13,6 +13,8 @@ router.register('user', views.CurrentUserViewSet, basename="user")
 router.register('posts', views.UserPostViewSet, basename="posts")
 router.register('feed', views.FeedViewSet, basename='feed')
 router.register('likes', views.LikeViewSet, basename='likes')
+router.register('follows', views.FollowViewSet, basename="follows")
+
 
 
 urlpatterns = [
