@@ -49,7 +49,7 @@ def create_user(request):
 @login_required
 def my_account(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
-    posts = Post.objects.filter(author=request.user).order_by("-date")
+    posts = Post.objects.filter(author=request.user).prefetch_related("likes", "comments").order_by("-date")
     return render(request, 'users/my_account.html', {"profile": profile, "posts": posts})
 
 

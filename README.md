@@ -145,6 +145,7 @@ Things I'd add if I continue this project:
 - JWT Authentication for most endpoints
 - REST API endpoints for posts, feed and user management
 - Signals for Profile creation while User is created
+- Query optimization using Django Debug Toolbar (68 → 9 queries)
 
 ### v1.1.0
 - Environment created in Docker
