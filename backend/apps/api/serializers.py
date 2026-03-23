@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from backend.apps.posts.models import Post
 from backend.apps.interactions.models import Like, Follow, Comment
+from backend.apps.users.models import Profile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,16 +22,19 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     likes_count = serializers.SerializerMethodField()   # DRF looks for a method named 'get_<field_name>'
-    # comments_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     def get_likes_count(self, obj):
         return obj.likes_count()    # Model method
+
+    def get_comments_count(self, obj):
+        return obj.comments_count()
 
     class Meta:
         model = Post
         fields = "__all__"
         # Will not be required in POST
-        read_only_fields = ['author', 'slug', 'date']
+        read_only_fields = ['author', 'slug', 'likes_count', 'comments_count', 'date']
 
 
 class LikeSerializer(serializers.ModelSerializer):
@@ -52,3 +56,13 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = "__all__"
         read_only_fields = ["user", "created_at"]
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    # Show serializer where to get data from
+    # Serializer doesn't accept '__'
+    username = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ["user", "username", "bio", "profile_picture"]

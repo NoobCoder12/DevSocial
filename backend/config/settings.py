@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 import os
 from django.contrib.messages import constants as messages
 from datetime import timedelta
+import socket
 
 load_dotenv()
 
@@ -30,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = []
 
@@ -165,7 +166,15 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',   # Basic permission
-    ]
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',   # Throttling for not authenticated users
+        'rest_framework.throttling.UserRateThrottle'  # Throttling for authenticated users
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/day',
+        'user': '100/day'
+    }
 }
 
 
@@ -174,6 +183,19 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+# Adds Docker IP to INTERNAL_IPS
+# gethostname() returns host name as str
+# gethostbyname_ex translates it to IP number
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+# Last digit must be deleted because it is container number
+INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ["127.0.0.1"]
+
+
+# For toolbar in Docker, only when DEBUG = TRUE
+if DEBUG:
+    def show_toolbar(request):
+        return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }

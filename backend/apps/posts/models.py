@@ -28,3 +28,6 @@ class Post(models.Model):
 
     def likes_count(self):
         return self.likes.count()
+
+    def comments_count(self):
+        return self.comments.count()
