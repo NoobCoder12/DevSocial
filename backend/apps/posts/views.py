@@ -20,19 +20,22 @@ class PostListView(LoginRequiredMixin, ListView):
         user = self.request.user
         followed_ids = user.following.values_list("following", flat=True)    # Flat returns a list, not list of tuples
 
-        return Post.objects.filter(Q(author=user) | Q(author_id__in=followed_ids)).select_related("author").order_by("-date")    # Without Q Django would treat it as AND
+        # Without Q Django would treat it as AND
         # author_id is created by Django, works like related_name, gets User id
         # select_related gets all related data for authors to minimize quantity of queries
+        # prefetch_related gets likes and comments for context iteration
+        return Post.objects.filter(Q(author=user) | Q(author_id__in=followed_ids)).select_related("author", "author__profile").order_by("-date").prefetch_related("likes", "comments", "comments__user", "comments__user__profile")   
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Adding PostForm
         context["post_form"] = PostForm()
 
+        liked_posts_ids = set(self.request.user.like_set.values_list('post_id', flat=True))
         # Liked state for every post
         for post in context['posts']:
             # Creating a variable for bool
-            post.user_liked = post.is_liked_by(user=self.request.user)
+            post.user_liked = post.id in liked_posts_ids
 
         return context
 

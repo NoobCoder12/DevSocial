@@ -15,6 +15,8 @@ from django.urls import reverse_lazy
 from dotenv import load_dotenv
 import os
 from django.contrib.messages import constants as messages
+from datetime import timedelta
+import socket
 
 load_dotenv()
 
@@ -29,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = []
 
@@ -46,6 +48,11 @@ INSTALLED_APPS = [
     'backend.apps.users',
     'backend.apps.posts',
     'backend.apps.interactions',
+    "rest_framework",
+    "drf_spectacular",
+    "backend.apps.api",
+    'rest_framework_simplejwt.token_blacklist',
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'backend.config.urls'
@@ -150,3 +158,44 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',   # Setting for Swagger
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',    # JWT Authentication
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',   # Basic permission
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',   # Throttling for not authenticated users
+        'rest_framework.throttling.UserRateThrottle'  # Throttling for authenticated users
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/day',
+        'user': '100/day'
+    }
+}
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+}
+
+# Adds Docker IP to INTERNAL_IPS
+# gethostname() returns host name as str
+# gethostbyname_ex translates it to IP number
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+# Last digit must be deleted because it is container number
+INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ["127.0.0.1"]
+
+
+# For toolbar in Docker, only when DEBUG = TRUE
+if DEBUG:
+    def show_toolbar(request):
+        return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }

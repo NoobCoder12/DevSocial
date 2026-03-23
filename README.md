@@ -2,12 +2,12 @@
 
 [![Django CI](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml/badge.svg)](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml)
 
-> Version 1.1.0
+> Version 1.2.0
 
 DevSocialApp is a social media platform designed for developers to share posts, interact with each other through likes and comments, and follow their peers.
 
 ## Why this stack?
-I wanted to build a full-featured social platform while learning Django's ecosystem end-to-end. Using Django for both backend and frontend allowed me to understand how this framework handles everything from database models to template rendering. I chose Bootstrap 5 for the frontend to focus on backend logic rather than CSS, and PostgreSQL was chosen for its reliability and production-readiness, with Docker handling the setup overhead.
+I wanted to build a full-featured social platform while learning Django's ecosystem end-to-end. Using Django for both backend and frontend allowed me to understand how this framework handles everything from database models to template rendering. I chose Bootstrap 5 for the frontend to focus on backend logic rather than CSS, and PostgreSQL was chosen for its reliability and production-readiness, with Docker handling the setup overhead. Django REST Framework was added to expose a JWT-secured API layer alongside the existing frontend.
 
 The project taught me:
 - How Django's ORM handles complex relationships (users, posts, comments, follows)
@@ -15,7 +15,11 @@ The project taught me:
 - Working with Django's template system and how it differs from separate frontend frameworks
 - Structuring a Django project with multiple apps for separation of concerns
 - Handling image uploads and media files with Pillow
-- The importance of proper form validation and model constraints
+- The importance of proper form validation and model constraints        
+- Designing API endpoints that mirror business logic of the application.   
+- Handling nested relationships in serializers (users, posts, comments).  
+- Rate limiting API requests using DRF throttling.   
+- Structuring API routes using routers.      
 
 ## Features
 
@@ -27,16 +31,17 @@ The project taught me:
   - Comment on posts.
   - Follow and unfollow other users.
 - **Search**: Search for other developers on the platform.
+- **REST API**: JWT-secured endpoints for posts, feed, likes, comments, follows and user search.  
 
 ## Technology Stack
 
-- **Backend**: Django (Python)
+- **Backend**: Django (Python), Django Rest Framework (DRF)
 - **Frontend**: Django Templates, Bootstrap 5
 - **Database**: PostgreSQL
 - **Testing**: 
   - **Pytest-Django**: For robust integration testing.
   - **Model Bakery**: For efficient test data generation and relationship handling.
-- **DevOps**: Docker    
+- **DevOps**: Docker, Django Debug Toolbar.   
 
 ## Project Structure
 ```
@@ -46,6 +51,7 @@ The project taught me:
 │    
 ├── backend/
 │   ├── apps/
+│   │   ├── api/             # REST API endpoints
 │   │   ├── interactions/    # Likes, comments, and follow system
 │   │   ├── posts/           # Post creation and feed logic
 │   │   ├── users/           # User management, profiles, and authentication
@@ -135,9 +141,18 @@ Things I'd add if I continue this project:
 - Notifications about interactions with your post or profile
 - Direct messages system
 - Hashtag system for post discovery
-- API endpoints
 
 ## Changelog
+
+### v1.2.0
+- Django Rest Framework added
+- JWT Authentication for most endpoints
+- REST API endpoints for posts, feed and user management
+- Signals for Profile creation while User is created
+- Query optimization using Django Debug Toolbar (68 → 9 queries)
+- User search endpoint with follow/unfollow and like/unlike actions
+- Swagger UI for endpoints
+- Throttling for rate limit
 
 ### v1.1.0
 - Environment created in Docker
