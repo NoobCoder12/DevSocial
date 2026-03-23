@@ -9,10 +9,10 @@ class UserSerializer(serializers.ModelSerializer):
     followers_count = serializers.SerializerMethodField()   # DRF looks for a method named 'get_<field_name>'
     following_count = serializers.SerializerMethodField()
 
-    def get_followers_count(self, obj):
+    def get_followers_count(self, obj) -> int:
         return obj.followers.count()
 
-    def get_following_count(self, obj):
+    def get_following_count(self, obj) -> int:
         return obj.following.count()
 
     class Meta:
@@ -24,10 +24,10 @@ class PostSerializer(serializers.ModelSerializer):
     likes_count = serializers.SerializerMethodField()   # DRF looks for a method named 'get_<field_name>'
     comments_count = serializers.SerializerMethodField()
 
-    def get_likes_count(self, obj):
+    def get_likes_count(self, obj) -> int:
         return obj.likes_count()    # Model method
 
-    def get_comments_count(self, obj):
+    def get_comments_count(self, obj) -> int:
         return obj.comments_count()
 
     class Meta:

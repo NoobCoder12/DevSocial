@@ -2,7 +2,7 @@
 
 [![Django CI](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml/badge.svg)](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml)
 
-> Version 1.2.0
+> Version 1.2.1
 
 DevSocialApp is a social media platform designed for developers to share posts, interact with each other through likes and comments, and follow their peers.
 
@@ -132,6 +132,7 @@ docker compose up
 ```
 
 The application will be accessible at `http://127.0.0.1:8000/`.
+API documentation available at `http://127.0.0.1:8000/api/schema/swagger-ui/`
 
 ## Future Improvements
 
@@ -141,8 +142,14 @@ Things I'd add if I continue this project:
 - Notifications about interactions with your post or profile
 - Direct messages system
 - Hashtag system for post discovery
+- Pagination for feed, posts and search endpoints
+- Caching with Redis for feed queries
+- Deployment to AWS (ECS, RDS)
 
 ## Changelog
+
+### v1.2.1
+- Improved Swagger documentation with endpoint descriptions and parameter types  
 
 ### v1.2.0
 - Django Rest Framework added
