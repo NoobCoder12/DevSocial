@@ -15,15 +15,20 @@ from .serializers import (
 )
 from rest_framework import viewsets
 from rest_framework import status
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from rest_framework.mixins import ListModelMixin
 
-
+@extend_schema(exclude=True)    # Do not add it to Swagger
 @api_view(['GET'])
 @permission_classes([AllowAny])     # Overwrites permision class for this view
 def health_check(request):
     return Response({'status': 'ok'})
 
 
-class CurrentUserViewSet(viewsets.ReadOnlyModelViewSet):
+class CurrentUserViewSet(ListModelMixin, viewsets.GenericViewSet):  # RetrieveModelMixin removed
+    """
+    Returns profile data of currently authenticated user.
+    """
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -31,6 +36,10 @@ class CurrentUserViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class UserPostViewSet(viewsets.ModelViewSet):
+    """
+    Manage posts of currently authenticated user.
+    Allows creating, reading and deleting own posts.
+    """
     serializer_class = PostSerializer
 
     def get_queryset(self):
@@ -55,8 +64,8 @@ class UserPostViewSet(viewsets.ModelViewSet):
 # Only to read
 class FeedViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    Class allows to see posts in current user feed.
-    With post ID comment and like can be created
+    Returns posts from users that current user follows.
+    Use post ID to add or remove a like, or to get/add comments.
     """
     serializer_class = PostSerializer
 
@@ -65,7 +74,12 @@ class FeedViewSet(viewsets.ReadOnlyModelViewSet):
         following = self.request.user.following.all().values_list("following_id", flat=True)
         # Return posts of followed users
         return Post.objects.filter(author__in=following)
-
+    
+    # Decorator for Swagger documentation, defining data type
+    # 'id' is a name of variable to define
+    # int is a type of defined variable
+    # OpenApiParameter.PATH Where does it show up - in URL
+    @extend_schema(parameters=[OpenApiParameter('id', int, OpenApiParameter.PATH)])
     # @action decorator adds action to basic URL in ViewSet
     @action(detail=True, methods=['post', 'delete', 'get'])
     # /like/ is created in URL from method name
@@ -82,6 +96,7 @@ class FeedViewSet(viewsets.ReadOnlyModelViewSet):
             serializer = LikeSerializer(likes, many=True)
             return Response(serializer.data)
 
+    @extend_schema(parameters=[OpenApiParameter('id', int, OpenApiParameter.PATH)])
     @action(detail=True, methods=['post', 'get'])
     def comment(self, request, pk=None):
         post = self.get_object()
@@ -96,6 +111,9 @@ class FeedViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class LikeViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Returns all likes added by currently authenticated user.
+    """
     serializer_class = LikeSerializer
 
     # Get likes of current user
@@ -108,7 +126,10 @@ class LikeViewSet(viewsets.ReadOnlyModelViewSet):
     #     serializer.save(user=self.request.user)
 
 
-class FollowViewSet(viewsets.ModelViewSet):
+class FollowViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Returns follows of current user.
+    """
     serializer_class = FollowSerializer
 
     def get_queryset(self):
@@ -116,6 +137,9 @@ class FollowViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Returns all comments added by currently authenticated user.
+    """
     serializer_class = CommentSerializer
 
     def get_queryset(self):
@@ -123,6 +147,11 @@ class CommentViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class SearchUsersViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Search for users by username.
+    Use query parameter 'q' to filter results. e.g. /search/?q=john
+    Use user ID to follow or unfollow a user.
+    """
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
@@ -130,6 +159,7 @@ class SearchUsersViewSet(viewsets.ReadOnlyModelViewSet):
         query = self.request.query_params.get("q", "")
         return Profile.objects.filter(user__username__icontains=query)
 
+    @extend_schema(parameters=[OpenApiParameter('id', int, OpenApiParameter.PATH)])
     @action(detail=True, methods=['post', 'delete'])
     def follow(self, request, pk=None):
         followed_user = self.get_object().user  # Gets user by profile
