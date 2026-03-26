@@ -2,7 +2,7 @@
 
 [![Django CI](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml/badge.svg)](https://github.com/NoobCoder12/DevSocial/actions/workflows/django-tests.yml)
 
-> Version 1.2.1
+> Version 1.2.2
 
 DevSocialApp is a social media platform designed for developers to share posts, interact with each other through likes and comments, and follow their peers.
 
@@ -147,6 +147,9 @@ Things I'd add if I continue this project:
 - Deployment to AWS (ECS, RDS)
 
 ## Changelog
+
+### v1.2.2
+- Added pytest for DRF endpoints
 
 ### v1.2.1
 - Improved Swagger documentation with endpoint descriptions and parameter types  
