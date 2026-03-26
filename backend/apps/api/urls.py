@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenBlacklistView
 )
 from rest_framework.routers import DefaultRouter
-from debug_toolbar.toolbar import debug_toolbar_urls
+from backend.config import settings
 
 router = DefaultRouter()
 router.register('user', views.CurrentUserViewSet, basename="user")
@@ -20,7 +20,7 @@ router.register('search', views.SearchUsersViewSet, basename='search')
 
 urlpatterns = [
     path("", include(router.urls)),
-    path('', views.health_check, name='health-check'),
+    path('health/', views.health_check, name='health-check'),
     # Generates raw OpenAPI schema
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     # Gets the schema and renders as UI
@@ -31,4 +31,7 @@ urlpatterns = [
     # Refresh token is sent to a black list, new table with blacklisted tokens is created
     # Access token (15min) remains valid until expiry.
     path('token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
-] + debug_toolbar_urls()
+] 
+if settings.DEBUG:
+    from debug_toolbar.toolbar import debug_toolbar_urls
+    urlpatterns += debug_toolbar_urls()

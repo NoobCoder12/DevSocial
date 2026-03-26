@@ -18,6 +18,7 @@ from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.mixins import ListModelMixin
 
+
 @extend_schema(exclude=True)    # Do not add it to Swagger
 @api_view(['GET'])
 @permission_classes([AllowAny])     # Overwrites permision class for this view
