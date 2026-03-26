@@ -20,7 +20,7 @@ router.register('search', views.SearchUsersViewSet, basename='search')
 
 urlpatterns = [
     path("", include(router.urls)),
-    path('', views.health_check, name='health-check'),
+    path('health/', views.health_check, name='health-check'),
     # Generates raw OpenAPI schema
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     # Gets the schema and renders as UI
