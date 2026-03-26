@@ -8,7 +8,6 @@ django.setup()
 import pytest
 from model_bakery import baker
 from rest_framework.test import APIClient
-from backend.config import settings
 from django.urls import reverse
 
 
@@ -28,8 +27,17 @@ def api_client():
 
 
 @pytest.fixture(autouse=True)
-def disable_debug(settings):
+def disable_debug(settings):    # Pytest-Django provides settings fixture
     settings.DEBUG = False
+
+
+@pytest.fixture(autouse=True)
+def disable_throttling(settings):
+    """
+    Disable throttling for test purpose
+    """
+    settings.REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = []
+    settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {}
 
 
 @pytest.fixture
