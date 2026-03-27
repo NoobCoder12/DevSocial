@@ -54,7 +54,7 @@ class UserPostViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(author=self.request.user)
-        return Response({'message': 'Post created'}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Post created', "id": serializer.data.get("id")}, status=status.HTTP_201_CREATED)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()  # Here is getting the object!
