@@ -9,6 +9,7 @@ import pytest
 from model_bakery import baker
 from rest_framework.test import APIClient
 from django.urls import reverse
+from django.core.cache import cache
 
 
 @pytest.fixture
@@ -38,6 +39,9 @@ def disable_throttling(settings):
     """
     settings.REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = []
     settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {}
+    
+    # Reset cache counter before next test
+    cache.clear()
 
 
 @pytest.fixture
