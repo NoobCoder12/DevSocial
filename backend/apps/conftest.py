@@ -81,3 +81,18 @@ def authorized_client(logged_user_access, api_client):
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
     return api_client
 
+
+@pytest.fixture
+def create_post(authorized_client):
+    """
+    Creating single post as a fixture
+    """
+    post = {
+        "title": "Hello recruiter",
+        "body": "I hope you are satisfied with what you see"
+    }
+
+    # DRF automatically sends data is mulipart/form-data, not JSON
+    response = authorized_client.post(reverse('posts-list'), data=post, format='json')
+
+    return post, response.json()
