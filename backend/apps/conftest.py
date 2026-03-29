@@ -96,3 +96,29 @@ def create_post(authorized_client):
     response = authorized_client.post(reverse('posts-list'), data=post, format='json')
 
     return post, response.json()
+
+
+@pytest.fixture
+def second_user_data():
+    """
+    Creating second user to follow
+    """
+    password = "Test.123!"
+    user = baker.make("auth.User", username="second_user")
+    user.set_password(password)
+    user.save()
+    user.plain_password = password  # Assigned for test purpose
+    return user
+
+
+@pytest.fixture
+def third_user_data():
+    """
+    Creating third user to follow
+    """
+    password = "Test.123!"
+    user = baker.make("auth.User", username="third_user")
+    user.set_password(password)
+    user.save()
+    user.plain_password = password  # Assigned for test purpose
+    return user

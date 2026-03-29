@@ -141,5 +141,4 @@ class TestCommentById:
 
         data = response.json()
         assert data is not None
-
         assert data.get("detail") == "Authentication credentials were not provided."
