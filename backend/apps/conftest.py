@@ -99,6 +99,28 @@ def create_post(authorized_client):
 
 
 @pytest.fixture
+def create_two_posts(authorized_client):
+    """
+    Creating two posts as a fixture
+    """
+    post1 = {
+        "title": "Hello recruiter",
+        "body": "I hope you are satisfied with what you see"
+    }
+
+    post2 = {
+        "title": "Hello recruiter",
+        "body": "I hope you are satisfied with what you see"
+    }
+
+    # DRF automatically sends data is mulipart/form-data, not JSON
+    response1 = authorized_client.post(reverse('posts-list'), data=post1, format='json')
+    response2 = authorized_client.post(reverse('posts-list'), data=post2, format='json')
+
+    return (post1, response1.json()), (post2, response2.json())
+
+
+@pytest.fixture
 def second_user_data():
     """
     Creating second user to follow
