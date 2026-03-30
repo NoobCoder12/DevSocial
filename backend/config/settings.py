@@ -33,6 +33,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
+# TODO: add host before deploy
 ALLOWED_HOSTS = []
 
 
@@ -139,6 +140,9 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = '/static/'
+
+# Location of static files after `collectstatic`
+STATIC_ROOT = BASE_DIR / "staticfiles" 
 
 STATICFILES_DIRS = [
     BASE_DIR / "frontend" / "static",
