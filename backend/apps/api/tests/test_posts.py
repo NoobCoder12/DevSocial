@@ -11,7 +11,7 @@ class TestPostPosts:
             "title": "Random title",
             "body": "Random body of a post"
         }
-    
+
     @pytest.mark.posts
     def test_posts(self, authorized_client):
         """

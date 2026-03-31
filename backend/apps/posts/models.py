@@ -15,6 +15,9 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
+        """
+        Overwriting method for slug creation
+        """
         if not self.slug:
             base_slug = slugify(self.title)
             self.slug = f"{base_slug}-{uuid.uuid4().hex[:8]}"

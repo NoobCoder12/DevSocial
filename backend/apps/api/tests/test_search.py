@@ -130,14 +130,6 @@ class TestSearchFollowById:
 
 
 class TestSearchUnfollowById:
-    @pytest.fixture
-    def create_follow(self, user_data, second_user_data):
-        follow = Follow.objects.get_or_create(
-            follower=user_data,
-            following=second_user_data
-        )
-        return follow
-
     @pytest.mark.search
     def test_unfollow_by_id(
         self,

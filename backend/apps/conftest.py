@@ -10,6 +10,7 @@ from model_bakery import baker
 from rest_framework.test import APIClient
 from django.urls import reverse
 from django.core.cache import cache
+from backend.apps.interactions.models import Follow
 
 
 @pytest.fixture
@@ -144,3 +145,15 @@ def third_user_data():
     user.save()
     user.plain_password = password  # Assigned for test purpose
     return user
+
+
+@pytest.fixture
+def create_follow(user_data, second_user_data):
+    """
+    Creating follow
+    """
+    follow = Follow.objects.create(
+        follower=user_data,
+        following=second_user_data
+    )
+    return follow
