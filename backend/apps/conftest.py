@@ -40,7 +40,7 @@ def disable_throttling(settings):
     """
     settings.REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = []
     settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {}
-    
+
     # Reset cache counter before next test
     cache.clear()
 
@@ -81,6 +81,34 @@ def authorized_client(logged_user_access, api_client):
     access_token = logged_user_access.get("access")
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
     return api_client
+
+
+@pytest.fixture
+def second_authorized_client(second_user_data):
+    """
+    Fixture for actions for second user
+    """
+    client = APIClient()    # Creating second instance not to overwrite the first one
+    url = reverse('token_obtain_pair')
+    data = {
+        "username": second_user_data.username,
+        "password": second_user_data.plain_password
+    }
+
+    # DRF automatically sends data is mulipart/form-data, not JSON
+    response = client.post(url, data=data, format='json')
+    received_data = response.json()
+    access_token = received_data.get("access")
+    refresh_token = received_data.get("refresh")
+    tokens = {
+        "refresh": refresh_token,
+        "access": access_token
+    }
+
+    # Authorize client
+    access_token = tokens.get("access")
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
+    return client
 
 
 @pytest.fixture

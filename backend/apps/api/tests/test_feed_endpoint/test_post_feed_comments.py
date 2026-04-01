@@ -34,7 +34,6 @@ class TestAddCommentsByPostId:
         assert data.get("message") == 'Comment added succesfully'
 
         # Check comments after adding
-        URL = reverse('feed-comment', args=[post1_id])
         response_get_after = authorized_client.get(URL)
         assert response_get_after.status_code == 200
         data_after = response_get_after.json()
@@ -74,7 +73,6 @@ class TestAddCommentsByPostId:
         assert response_post.status_code == 201
 
         # Check comments after adding
-        URL = reverse('feed-comment', args=[post1_id])
         response_get = authorized_client.get(URL)
         assert response_get.status_code == 200
         assert len(response_get.json()) == 2

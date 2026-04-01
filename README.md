@@ -40,7 +40,8 @@ The project taught me:
 - **Database**: PostgreSQL
 - **Testing**: 
   - **Pytest-Django**: For robust integration testing.
-  - **Model Bakery**: For efficient test data generation and relationship handling.
+  - **Model Bakery**: For efficient test data generation and relationship handling.      
+  - **pytest-cov**: For test coverage reporting.       
 - **DevOps**: Docker, Django Debug Toolbar.   
 
 ## Project Structure
@@ -80,9 +81,9 @@ The project taught me:
 ├── requirements.txt         # Python dependencies
 ├── .env.example             # Environment variables template
 ├── .gitignore
+├── init.sql                 # Initial database setup script
 ├── docker-compose.yml
 ├── Dockerfile
-├── init.sql
 └── README.md
 ```
 
@@ -100,10 +101,11 @@ To ensure the reliability of the social interactions and data integrity, the pro
 To run tests locally with coverage:
 
   ```
+  docker compose up -d  
   pytest --cov=backend/apps --cov-report=term-missing
   ```
 
-All test files are located in app's folders.
+All test files are located in app's folders. The test suite includes 90+ tests (integration tests for DRF API endpoints and Django unit tests).
 
 ## Setup Instructions
 
@@ -122,6 +124,7 @@ POSTGRES_USER=name
 POSTGRES_PASSWORD=password
 POSTGRES_DB=database-name
 POSTGRES_HOST=localhost
+DEBUG=True
 ```
 
 
@@ -149,7 +152,10 @@ Things I'd add if I continue this project:
 ## Changelog
 
 ### v1.3.0
-- Added pytest for DRF endpoints
+- Added pytest for DRF endpoints.    
+- 93% code coverage achieved across 90 tests.   
+- Added GitHub Actions CI/CD pipeline with coverage reporting.   
+- Added type hints to views.    
 
 ### v1.2.1
 - Improved Swagger documentation with endpoint descriptions and parameter types  

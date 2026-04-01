@@ -1,6 +1,6 @@
 import pytest
 from backend.apps.posts.models import Post
-from backend.apps.interactions.models import Comment
+from backend.apps.interactions.models import Comment, Like
 
 
 @pytest.fixture
@@ -30,7 +30,7 @@ def third_user_post(third_user_data):
         author=third_user_data
     )
 
-    return post
+    return post, post.id
 
 
 @pytest.fixture
@@ -59,3 +59,15 @@ def post1_id(posts_created_by_followed_user):
     Fixture for post1 ID
     """
     return posts_created_by_followed_user[0].id
+
+
+@pytest.fixture
+def add_likes_to_post(posts_created_by_followed_user, user_data, second_user_data):
+    """
+    Fixture for creating likes under a post
+    """
+    post1, _ = posts_created_by_followed_user
+    like1 = Like.objects.create(user=user_data, post=post1)
+    like2 = Like.objects.create(user=second_user_data, post=post1)
+
+    return like1, like2
