@@ -33,6 +33,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
+# TODO: add host before deploy
 ALLOWED_HOSTS = []
 
 
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "backend.apps.api",
     'rest_framework_simplejwt.token_blacklist',
-    "debug_toolbar",
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'backend.config.urls'
@@ -141,6 +141,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = '/static/'
 
+# Location of static files after `collectstatic`
+STATIC_ROOT = BASE_DIR / "staticfiles" 
+
 STATICFILES_DIRS = [
     BASE_DIR / "frontend" / "static",
 ]
@@ -199,3 +202,6 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     }
+
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
